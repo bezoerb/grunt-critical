@@ -2,3 +2,8 @@
 .DS_Store
 node_modules/
 npm-debug.log
+# Created by http://www.gitignore.io
+
+### Bower ###
+bower_components
+
