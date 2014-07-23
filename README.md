@@ -1,6 +1,6 @@
 # grunt-critical
 
-Grunt plugin to extract & inline critical-path CSS from HTML
+Grunt plugin to extract & inline critical-path CSS from HTML WiP WiP WiP
 
 [![build status](https://secure.travis-ci.org/bezoerb/grunt-critical.png)](http://travis-ci.org/bezoerb/grunt-critical)
 

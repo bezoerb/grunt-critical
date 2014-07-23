@@ -17,25 +17,11 @@ module.exports = function (grunt) {
         var done = this.async();
         var options = this.options({
             // Your base directory
-            base: process.cwd(),
-
-            // Viewport width
-            width: 1024,
-
-            // Viewport height
-            height: 768,
-
-            // Target for final HTML output
-            htmlTarget: '',
-
-            // Target for generated critical-path CSS (which we inline)
-            styleTarget: '',
-
-            // Minify critical-path CSS when inlining
-            minify: true
+            base: ''
         });
 
-        this.files.forEach(function (f) {
+        // Loop files array
+        grunt.util.async.forEachSeries(this.files, function(f, nextFileObj) {
             var src = f.src.filter(function (filepath) {
                 // Warn on and remove invalid source files (if nonull was set).
                 if (!grunt.file.exists(filepath)) {
@@ -51,24 +37,38 @@ module.exports = function (grunt) {
                 return;
             }
 
-            try {
-                options.src = src;
-                options.dest = f.dest;
+            options.base = path.normalize(options.base || '');
 
-                critical.generateInline(options, function (err, output){
-                    done();
-                });
 
-            } catch (e) {
-                var err = new Error('Critical failed.');
-                if (e.msg) {
-                    err.message += ', ' + e.msg + '.';
+            grunt.util.async.concatSeries(src, function(file, next) {
+                try {
+                    options.src = file;
+                    options.dest = f.dest;
+
+                    critical.generate(options, function (err, output){
+                        if (err) {
+                            throw err;
+                        }
+                        grunt.file.write(f.dest, output);
+                        next();
+                    });
+
+                } catch (e) {
+                    var err = new Error('Critical failed.');
+                    if (e.msg) {
+                        err.message += ', ' + e.msg + '.';
+                    }
+                    err.origError = e;
+                    grunt.log.warn('Generating critical path for source "' + src + '" failed.');
+                    grunt.fail.warn(err);
                 }
-                err.origError = e;
-                grunt.log.warn('Generating critical path for source "' + src + '" failed.');
-                grunt.fail.warn(err);
-            }
-        });
+            }, function() {
+                grunt.log.debug('done');
+                nextFileObj();
+            });
+
+
+        },done);
 
     });
 
