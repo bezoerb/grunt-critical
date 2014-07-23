@@ -9,11 +9,6 @@ Grunt plugin to extract & inline critical-path CSS from HTML WiP WiP WiP
 This module is installed via npm:
 
 ``` bash
-$ npm install grunt-critical
+$ npm install --save-dev grunt-critical
 ```
 
-## Example Usage
-
-``` js
-var gruntCritical = require('grunt-critical');
-```
