@@ -40,10 +40,16 @@ module.exports = function (grunt) {
             options.base = path.normalize(options.base || '');
 
 
+            // absolutize filepath
+            var basereplace = path.resolve(options.base || './') + '/';
+
+
+
             grunt.util.async.concatSeries(src, function(file, next) {
                 try {
-                    options.src = file;
-                    options.dest = f.dest;
+
+                    options.src = path.resolve(file).replace(basereplace,'');
+//                    options.dest = path.resolve(f.dest).replace(basereplace,'');
 
                     critical.generate(options, function (err, output){
                         if (err) {
