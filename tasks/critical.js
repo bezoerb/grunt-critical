@@ -11,6 +11,8 @@
 module.exports = function (grunt) {
     var critical = require('critical');
     var path = require('path');
+    var async = require('async');
+    var inliner = require('inline-critical');
 
     grunt.registerMultiTask('critical', 'Extract & inline critical-path CSS from HTML', function () {
 
@@ -21,8 +23,16 @@ module.exports = function (grunt) {
         });
 
         // Loop files array
-        grunt.util.async.forEachSeries(this.files, function(f, nextFileObj) {
-            var src = f.src.filter(function (filepath) {
+        // Iterate over all specified file groups.
+        this.files.forEach(function(f) {
+            options.base = path.normalize(options.base || '');
+
+
+            // absolutize filepath
+            var basereplace = path.resolve(options.base || './') + '/';
+
+            // Concat specified files.
+            var srcFiles = f.src.filter(function(filepath) {
                 // Warn on and remove invalid source files (if nonull was set).
                 if (!grunt.file.exists(filepath)) {
                     grunt.log.warn('Source file "' + filepath + '" not found.');
@@ -32,49 +42,54 @@ module.exports = function (grunt) {
                 }
             });
 
-            if (src.length === 0) {
+
+            if (srcFiles.length === 0) {
                 grunt.log.warn('Destination (' + f.dest + ') not written because src files were empty.');
                 return;
             }
 
-            options.base = path.normalize(options.base || '');
 
-
-            // absolutize filepath
-            var basereplace = path.resolve(options.base || './') + '/';
-
-
-
-            grunt.util.async.concatSeries(src, function(file, next) {
+            async.each(srcFiles,function(src,cb){
+                options.src = path.resolve(src).replace(basereplace,'');
                 try {
-
-                    options.src = path.resolve(file).replace(basereplace,'');
-//                    options.dest = path.resolve(f.dest).replace(basereplace,'');
-
                     critical.generate(options, function (err, output){
                         if (err) {
-                            throw err;
+                            cb(err);
                         }
-                        grunt.file.write(f.dest, output);
-                        next();
-                    });
 
-                } catch (e) {
+                        // check if dest file stylesheet
+                        if (/\.(css|scss|less)/.test(path.extname(f.dest))){
+                            grunt.file.write(f.dest, output);
+                            // Print a success message.
+                            grunt.log.writeln('File "' + f.dest + '" created.');
+                            cb();
+
+                            // try to inline
+                        } else {
+                            var html = grunt.file.read(src);
+                            var destHtml = inliner(html, output, options.minify);
+
+                            grunt.file.write(f.dest, destHtml);
+
+                            cb();
+                        }
+                    });
+                } catch (err) {
+                    cb(err);
+                }
+            },function(e) {
+                if (e) {
                     var err = new Error('Critical failed.');
                     if (e.msg) {
                         err.message += ', ' + e.msg + '.';
                     }
                     err.origError = e;
-                    grunt.log.warn('Generating critical path for source "' + src + '" failed.');
+                    grunt.log.warn('Generating critical-path css failed.');
                     grunt.fail.warn(err);
                 }
-            }, function() {
-                grunt.log.debug('done');
-                nextFileObj();
+                done();
             });
-
-
-        },done);
+        });
 
     });
 

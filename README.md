@@ -1,6 +1,6 @@
 # grunt-critical
 
-Grunt plugin to extract & inline critical-path CSS from HTML (WiP alpha version)
+Grunt plugin to extract & inline critical-path CSS from HTML
 
 [![build status](https://secure.travis-ci.org/bezoerb/grunt-critical.png)](http://travis-ci.org/bezoerb/grunt-critical)
 
@@ -53,12 +53,31 @@ critical: {
 }
 ```
 
+If the `dest` file is a stylesheet, the resulting critical-path css is saved to this file for later use.
+If `dest` points to an Markup file (HTML, PHP, etc.) the resulting CSS gets inlined and the exiting stylesheets are
+wrapped in a javascript function to load them asynchronously as well as a noscript block for users with javascript disabled
+
+```shell
+critical: {
+    test: {
+        options: {
+            base: './',
+            css: [
+                'test/fixture/styles/main.css',
+                'test/fixture/styles/bootstrap.css'
+            ],
+            width: 320,
+            height: 70
+        },
+        src: 'test/fixture/index.html',
+        dest: 'test/generated/index-critical.html'
+    }
+}
+```
+
 ## Options
 
-Sample use of all supported options:
-```shell
-TODO
-```
+For a full list of options see [critical](https://github.com/addyosmani/critical#options)
 
 ## License
 

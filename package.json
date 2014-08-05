@@ -23,7 +23,9 @@
     "url": "https://github.com/bezoerb/grunt-critical/issues"
   },
   "dependencies": {
-    "critical": "git+https://github.com/addyosmani/critical.git"
+    "async": "^0.9.0",
+    "critical": "~0.1.6",
+    "inline-critical": "0.0.2"
   },
   "devDependencies": {
     "chai": "~1.8.1",

@@ -42,7 +42,7 @@ module.exports = function(grunt) {
             }
         },
         critical: {
-            test: {
+            'test-css': {
                 options: {
                     base: './',
                     css: [
@@ -54,6 +54,20 @@ module.exports = function(grunt) {
                 },
                 src: 'test/fixture/index.html',
                 dest: 'test/generated/critical.css'
+            },
+            'test-html': {
+                options: {
+                    minify: true,
+                    base: './',
+                    css: [
+                        'test/fixture/styles/main.css',
+                        'test/fixture/styles/bootstrap.css'
+                    ],
+                    width: 320,
+                    height: 70
+                },
+                src: 'test/fixture/index.html',
+                dest: 'test/generated/index-critical.html'
             }
         }
     });

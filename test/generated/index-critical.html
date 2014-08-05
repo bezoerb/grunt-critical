@@ -7,9 +7,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <style>
-body{padding-top:20px;padding-bottom:20px}.header,.marketing{padding-left:15px;padding-right:15px}.header{border-bottom:1px solid #e5e5e5}.header h3{margin-top:0;margin-bottom:0;line-height:40px;padding-bottom:19px}.jumbotron{text-align:center;border-bottom:1px solid #e5e5e5}.jumbotron .btn{font-size:21px;padding:14px 24px}.marketing{margin:40px 0}@media screen and (min-width:768px){.container{max-width:730px}.header,.marketing{padding-left:0;padding-right:0}.header{margin-bottom:30px}.jumbotron{border-bottom:0}}
+        <!-- build:css styles/main.css -->
+        <style type="text/css">
+body{padding-top:20px;padding-bottom:20px}.header{padding-left:15px;padding-right:15px;border-bottom:1px solid #e5e5e5}@media screen and (min-width:768px){.container{max-width:730px}.header{padding-left:0;padding-right:0;margin-bottom:30px}}html{font-family:sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}body{margin:0}a{background:0 0}@media print{*{color:#000!important;text-shadow:none!important;background:0 0!important;box-shadow:none!important}a{text-decoration:underline}a[href]:after{content:" (" attr(href) ")"}a[href^="#"]:after{content:""}}*,:after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}html{font-size:62.5%;-webkit-tap-highlight-color:transparent}body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;line-height:1.42857143;color:#333;background-color:#fff}a{color:#428bca;text-decoration:none}ul{margin-top:0;margin-bottom:10px}.container{padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto}@media (min-width:768px){.container{width:750px}}@media (min-width:992px){.container{width:970px}}@media (min-width:1200px){.container{width:1170px}}.nav{padding-left:0;margin-bottom:0;list-style:none}.nav>li{position:relative;display:block}.nav>li>a{position:relative;display:block;padding:10px 15px}.nav-pills>li{float:left}.nav-pills>li>a{border-radius:4px}.nav-pills>li+li{margin-left:2px}.nav-pills>li.active>a{color:#fff;background-color:#428bca}.container:after,.container:before,.nav:after,.nav:before{display:table;content:" "}.container:after,.nav:after{clear:both}.pull-right{float:right!important}
 </style>
+<noscript>
+<link rel="stylesheet" href="styles/main.css">
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+</noscript>
+        
+        <!-- endbuild -->
 
     </head>
     <body>
@@ -83,5 +90,8 @@ body{padding-top:20px;padding-bottom:20px}.header,.marketing{padding-left:15px;p
         <!-- build:js scripts/main.js -->
         <script src="scripts/main.js"></script>
         <!-- endbuild -->
+<script>
+(function(d,u){for (var i in u) {var l=d.createElement('link');l.type='text/css';l.rel='stylesheet';l.href=u[i]; d.getElementsByTagName('head')[0].appendChild(l);}}(document,['styles/main.css','bower_components/bootstrap/dist/css/bootstrap.css']));
+</script>
 </body>
 </html>
