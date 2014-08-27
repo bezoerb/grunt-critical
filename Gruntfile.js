@@ -76,7 +76,7 @@ module.exports = function(grunt) {
     grunt.loadTasks('tasks');
 
 
-    grunt.registerTask('test', ['complexity', 'jshint', 'simplemocha', 'watch']);
-    grunt.registerTask('ci', ['complexity', 'jshint', 'simplemocha']);
+    grunt.registerTask('test', ['complexity', 'jshint', 'critical', 'simplemocha', 'watch']);
+    grunt.registerTask('ci', ['complexity', 'jshint', 'critical', 'simplemocha']);
     grunt.registerTask('default', ['test']);
 };

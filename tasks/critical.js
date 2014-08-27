@@ -70,7 +70,8 @@ module.exports = function (grunt) {
                             var destHtml = inliner(html, output, options.minify);
 
                             grunt.file.write(f.dest, destHtml);
-
+                            // Print a success message.
+                            grunt.log.writeln('File "' + f.dest + '" created.');
                             cb();
                         }
                     });
@@ -79,6 +80,7 @@ module.exports = function (grunt) {
                 }
             },function(e) {
                 if (e) {
+                    console.log(e);
                     var err = new Error('Critical failed.');
                     if (e.msg) {
                         err.message += ', ' + e.msg + '.';
