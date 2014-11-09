@@ -11,7 +11,10 @@
     "url": "https://github.com/bezoerb/grunt-critical"
   },
   "keywords": [
-    "critical-path css perf gruntplugin"
+    "critical-path",
+    "css",
+    "perf",
+    "gruntplugin"
   ],
   "author": "Ben Zörb <ben@sommerlaune.com>",
   "licenses": [
