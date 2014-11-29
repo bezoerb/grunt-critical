@@ -24,4 +24,11 @@ describe('critical',function(){
         expect(output).to.equal(expected);
     });
 
+
+    it('generates html with extracted minified critical-path CSS successfully', function () {
+        var expected = stripWhitespace(fs.readFileSync('test/fixture/index-inlined-extract.html', 'utf8'));
+        var output = stripWhitespace(fs.readFileSync('test/generated/index-critical-extract.html', 'utf8'));
+        expect(output).to.equal(expected);
+    });
+
 });

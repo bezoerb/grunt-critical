@@ -68,6 +68,21 @@ module.exports = function(grunt) {
                 },
                 src: 'test/fixture/index.html',
                 dest: 'test/generated/index-critical.html'
+            },
+            'test-extract': {
+                options: {
+                    minify: true,
+                    extract: true,
+                    base: 'test/fixture',
+                    css: [
+                        'test/fixture/styles/main.css',
+                        'test/fixture/styles/bootstrap.css'
+                    ],
+                    width: 320,
+                    height: 70
+                },
+                src: 'test/fixture/index.html',
+                dest: 'test/generated/index-critical-extract.html'
             }
         }
     });

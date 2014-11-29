@@ -11,8 +11,7 @@
 module.exports = function (grunt) {
     var critical = require('critical');
     var path = require('path');
-    var async = require('async');
-    var inliner = require('inline-critical');
+    var async = require('async')
 
     grunt.registerMultiTask('critical', 'Extract & inline critical-path CSS from HTML', function () {
 
@@ -49,31 +48,40 @@ module.exports = function (grunt) {
             }
 
 
+            var command = (/\.(css|scss|less)/.test(path.extname(f.dest))) ? 'generate' : 'generateInline';
+
             async.each(srcFiles,function(src,cb){
                 options.src = path.resolve(src).replace(basereplace,'');
                 try {
-                    critical.generate(options, function (err, output){
+                    critical[command](options, function (err, output){
                         if (err) {
                             cb(err);
                         }
 
-                        // check if dest file stylesheet
-                        if (/\.(css|scss|less)/.test(path.extname(f.dest))){
-                            grunt.file.write(f.dest, output);
-                            // Print a success message.
-                            grunt.log.writeln('File "' + f.dest + '" created.');
-                            cb();
+                        grunt.file.write(f.dest, output);
+                        // Print a success message.
+                        grunt.log.writeln('File "' + f.dest + '" created.');
 
-                            // try to inline
-                        } else {
-                            var html = grunt.file.read(src);
-                            var destHtml = inliner(html, output, options.minify);
+                        cb(null,output);
 
-                            grunt.file.write(f.dest, destHtml);
-                            // Print a success message.
-                            grunt.log.writeln('File "' + f.dest + '" created.');
-                            cb();
-                        }
+                        //// check if dest file stylesheet
+                        //if (/\.(css|scss|less)/.test(path.extname(f.dest))){
+                        //    grunt.file.write(f.dest, output);
+                        //    // Print a success message.
+                        //    grunt.log.writeln('File "' + f.dest + '" created.');
+                        //    cb();
+                        //
+                        //    // try to inline
+                        //} else {
+                        //    var html = grunt.file.read(src);
+                        //    options.basePath = options.base;
+                        //    var destHtml = inliner(html, output, options);
+                        //
+                        //    grunt.file.write(f.dest, destHtml);
+                        //    // Print a success message.
+                        //    grunt.log.writeln('File "' + f.dest + '" created.');
+                        //    cb();
+                        //}
                     });
                 } catch (err) {
                     cb(err);
