@@ -63,25 +63,6 @@ module.exports = function (grunt) {
                         grunt.log.writeln('File "' + f.dest + '" created.');
 
                         cb(null,output);
-
-                        //// check if dest file stylesheet
-                        //if (/\.(css|scss|less)/.test(path.extname(f.dest))){
-                        //    grunt.file.write(f.dest, output);
-                        //    // Print a success message.
-                        //    grunt.log.writeln('File "' + f.dest + '" created.');
-                        //    cb();
-                        //
-                        //    // try to inline
-                        //} else {
-                        //    var html = grunt.file.read(src);
-                        //    options.basePath = options.base;
-                        //    var destHtml = inliner(html, output, options);
-                        //
-                        //    grunt.file.write(f.dest, destHtml);
-                        //    // Print a success message.
-                        //    grunt.log.writeln('File "' + f.dest + '" created.');
-                        //    cb();
-                        //}
                     });
                 } catch (err) {
                     cb(err);
