@@ -83,6 +83,22 @@ module.exports = function(grunt) {
                 },
                 src: 'test/fixture/index.html',
                 dest: 'test/generated/index-critical-extract.html'
+            },
+            'test-multiple': {
+                options: {
+                    minify: true,
+                    base: 'test/fixture',
+                    css: [
+                        'test/fixture/styles/main.css',
+                        'test/fixture/styles/bootstrap.css'
+                    ],
+                    width: 320,
+                    height: 70
+                },
+                files: [
+                    // makes all src relative to cwd
+                    {expand: true, cwd: 'test/fixture/', src: ['multiple/**/*.html'], dest: 'test/generated/'}
+                ]
             }
         }
     });

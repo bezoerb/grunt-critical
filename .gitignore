@@ -8,4 +8,4 @@ npm-debug.log
 bower_components
 test/fixture/styles/bootstrap.55b74672.css
 test/fixture/styles/main.f3e3d7b9.css
-
+test/generated

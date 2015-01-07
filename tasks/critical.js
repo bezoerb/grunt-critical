@@ -11,7 +11,7 @@
 module.exports = function (grunt) {
     var critical = require('critical');
     var path = require('path');
-    var async = require('async')
+    var async = require('async');
 
     grunt.registerMultiTask('critical', 'Extract & inline critical-path CSS from HTML', function () {
 
@@ -21,11 +21,24 @@ module.exports = function (grunt) {
             base: ''
         });
 
+        // count files to eventualy increase max listeners to prevent EventEmitter memory leak warning
+        var numfiles = this.files.reduce(function(res,f) {
+            res = res.concat(f.src.filter(function(filepath) {
+                return grunt.file.exists(filepath);
+            }));
+            return res;
+        },[]).length;
+
+        if (numfiles > 10) {
+            grunt.verbose.ok('Increasing maxListeners to ' + numfiles);
+            // quick hack to prevent event stacking in tests
+            process.setMaxListeners(numfiles +3);
+        }
+
         // Loop files array
         // Iterate over all specified file groups.
-        this.files.forEach(function(f) {
+        async.each(this.files,function(f,next) {
             options.base = path.normalize(options.base || '');
-
 
             // absolutize filepath
             var basereplace = path.resolve(options.base || './') + '/';
@@ -41,14 +54,14 @@ module.exports = function (grunt) {
                 }
             });
 
-
+            // nothing to do
             if (srcFiles.length === 0) {
                 grunt.log.warn('Destination (' + f.dest + ') not written because src files were empty.');
                 return;
             }
 
-
-            var command = (/\.(css|scss|less)/.test(path.extname(f.dest))) ? 'generate' : 'generateInline';
+            // choose wether to create raw css or complete html
+            var command = (/\.(css|scss|less|styl)/.test(path.extname(f.dest))) ? 'generate' : 'generateInline';
 
             async.each(srcFiles,function(src,cb){
                 options.src = path.resolve(src).replace(basereplace,'');
@@ -57,7 +70,6 @@ module.exports = function (grunt) {
                         if (err) {
                             cb(err);
                         }
-
                         grunt.file.write(f.dest, output);
                         // Print a success message.
                         grunt.log.writeln('File "' + f.dest + '" created.');
@@ -69,19 +81,11 @@ module.exports = function (grunt) {
                 }
             },function(e) {
                 if (e) {
-                    console.log(e);
-                    var err = new Error('Critical failed.');
-                    if (e.msg) {
-                        err.message += ', ' + e.msg + '.';
-                    }
-                    err.origError = e;
-                    grunt.log.warn('Generating critical-path css failed.');
-                    grunt.fail.warn(err);
+                    grunt.log.warn('Destination (' + f.dest + ') failed. ' + e.msg);
                 }
-                done();
+                next();
             });
-        });
-
+        },done);
     });
 
 };

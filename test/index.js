@@ -31,4 +31,12 @@ describe('critical',function(){
         expect(output).to.equal(expected);
     });
 
+    it('generates multiple html files without throwing "warning: possible EventEmitter memory leak detected"', function(){
+        var output,expected = stripWhitespace(fs.readFileSync('test/fixture/index-inlined-multiple.html', 'utf8'));
+        for (var i=1; i<=12; i++) {
+            output = stripWhitespace(fs.readFileSync('test/generated/multiple/index' + i + '.html', 'utf8'));
+            expect(output).to.equal(expected);
+        }
+    });
+
 });
