@@ -12,6 +12,7 @@ module.exports = function (grunt) {
     var critical = require('critical');
     var path = require('path');
     var async = require('async');
+    var extend = require('util')._extend;
 
     grunt.registerMultiTask('critical', 'Extract & inline critical-path CSS from HTML', function () {
 
@@ -64,9 +65,10 @@ module.exports = function (grunt) {
             var command = (/\.(css|scss|less|styl)/.test(path.extname(f.dest))) ? 'generate' : 'generateInline';
 
             async.each(srcFiles,function(src,cb){
-                options.src = path.resolve(src).replace(basereplace,'');
+                var opts = extend({},options);
+                opts.src = path.resolve(src).replace(basereplace,'');
                 try {
-                    critical[command](options, function (err, output){
+                    critical[command](opts, function (err, output){
                         if (err) {
                             cb(err);
                         }
