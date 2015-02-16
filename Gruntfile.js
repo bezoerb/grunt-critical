@@ -99,6 +99,19 @@ module.exports = function(grunt) {
                     // makes all src relative to cwd
                     {expand: true, cwd: 'test/fixture/', src: ['multiple/**/*.html'], dest: 'test/generated/'}
                 ]
+            },
+            'issue-8': {
+                options: {
+                    base: 'test/fixture/issue-8',
+                    css: [
+                        'test/fixture/issue-8/styles/test_require.css',
+                    ],
+                    minify: false,
+                    width: 100,
+                    height: 50
+                },
+                src: 'test/fixture/issue-8/test_require.html',
+                dest: 'test/generated/issue-8/test_require.css'
             }
         }
     });

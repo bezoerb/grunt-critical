@@ -10,6 +10,7 @@ function stripWhitespace(string) {
     return string.replace(/[\r\n]+/mg,' ').replace(/\s+/gm,'');
 }
 
+
 describe('critical',function(){
     it('generates minified critical-path CSS successfully', function () {
         var expected = stripWhitespace(fs.readFileSync('test/fixture/styles/critical-pregenerated.css', 'utf8'));
@@ -38,6 +39,12 @@ describe('critical',function(){
             output = stripWhitespace(fs.readFileSync('test/generated/multiple/index' + i + '.html', 'utf8'));
             expect(output).to.equal(stripWhitespace(expected.replace('<title>page x</title>','<title>page ' + i + '</title>')));
         }
+    });
+
+    it('should not hang ^^', function(){
+        var expected = fs.readFileSync('test/fixture/issue-8/styles/test_require-critical.css', 'utf8');
+        var output = fs.readFileSync('test/generated/issue-8/test_require.css', 'utf8');
+        expect(stripWhitespace(output)).to.equal(stripWhitespace(expected));
     });
 
 });
