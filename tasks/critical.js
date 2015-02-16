@@ -30,11 +30,8 @@ module.exports = function (grunt) {
             return res;
         },[]).length;
 
-        if (numfiles > 10) {
-            grunt.verbose.ok('Increasing maxListeners to ' + numfiles);
-            // quick hack to prevent event stacking in tests
-            process.setMaxListeners(numfiles +3);
-        }
+        // don't fail on stacking event emitters
+        process.setMaxListeners(0);
 
         // Loop files array
         // Iterate over all specified file groups.
