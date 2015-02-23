@@ -106,7 +106,7 @@ module.exports = function(grunt) {
                     css: [
                         'test/fixture/issue-8/styles/test_require.css',
                     ],
-                    minify: false,
+                    minify: true,
                     width: 100,
                     height: 50
                 },
