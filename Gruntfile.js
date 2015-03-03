@@ -86,7 +86,6 @@ module.exports = function(grunt) {
             },
             'test-multiple': {
                 options: {
-                    minify: true,
                     base: 'test/fixture',
                     css: [
                         'test/fixture/styles/main.css',
