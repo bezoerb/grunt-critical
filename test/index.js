@@ -41,7 +41,7 @@ describe('critical',function(){
 
     it('generates multiple html files without throwing "warning: possible EventEmitter memory leak detected"', function(){
         var output,expected = read('expected/index-multiple.html');
-        for (var i=1; i<=12; i++) {
+        for (var i=1; i<=5; i++) {
 
             output = read('generated/multiple/index' + i + '.html');
             expect(output).to.equal(expected.replace('<title>pagex</title>','<title>page' + i + '</title>'));
