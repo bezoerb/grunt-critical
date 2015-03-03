@@ -49,8 +49,8 @@ module.exports = function(grunt) {
                         'test/fixture/styles/main.css',
                         'test/fixture/styles/bootstrap.css'
                     ],
-                    width: 320,
-                    height: 70
+                    width: 1300,
+                    height: 900
                 },
                 src: 'test/fixture/index.html',
                 dest: 'test/generated/critical.css'
@@ -63,8 +63,8 @@ module.exports = function(grunt) {
                         'test/fixture/styles/main.css',
                         'test/fixture/styles/bootstrap.css'
                     ],
-                    width: 320,
-                    height: 70
+                    width: 1300,
+                    height: 900
                 },
                 src: 'test/fixture/index.html',
                 dest: 'test/generated/index-critical.html'
@@ -78,8 +78,8 @@ module.exports = function(grunt) {
                         'test/fixture/styles/main.css',
                         'test/fixture/styles/bootstrap.css'
                     ],
-                    width: 320,
-                    height: 70
+                    width: 1300,
+                    height: 900
                 },
                 src: 'test/fixture/index.html',
                 dest: 'test/generated/index-critical-extract.html'
@@ -92,26 +92,28 @@ module.exports = function(grunt) {
                         'test/fixture/styles/main.css',
                         'test/fixture/styles/bootstrap.css'
                     ],
-                    width: 320,
-                    height: 70
+                    width: 1300,
+                    height: 900
                 },
                 files: [
                     // makes all src relative to cwd
                     {expand: true, cwd: 'test/fixture/', src: ['multiple/**/*.html'], dest: 'test/generated/'}
                 ]
             },
-            'issue-8': {
+            'test-external': {
                 options: {
-                    base: 'test/fixture/issue-8',
-                    css: [
-                        'test/fixture/issue-8/styles/test_require.css',
-                    ],
+                    base: 'test/fixture',
                     minify: true,
-                    width: 100,
-                    height: 50
+                    extract: true,
+                    css: [
+                        'test/fixture/styles/main.css',
+                        'test/fixture/styles/bootstrap.css'
+                    ],
+                    width: 1300,
+                    height: 900
                 },
-                src: 'test/fixture/issue-8/test_require.html',
-                dest: 'test/generated/issue-8/test_require.css'
+                src: 'test/fixture/index-external.html',
+                dest: 'test/generated/index-external.html'
             }
         }
     });
