@@ -1,4 +1,20 @@
 
+0.1.2 / 2015-03-04
+==================
+
+  * bumped critical & updated tests
+  
+0.1.1 / 2015-01-14
+==================
+
+  * bump deps
+  * critical version
+  * test iojs + 0.10 + 0.12
+  * tweaked
+  * Added tests for #8
+  * minor tweaks
+  * bump deps
+
 0.1.0 / 2015-01-08
 ==================
 
