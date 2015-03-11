@@ -83,7 +83,8 @@ module.exports = function (grunt) {
                 }
             },function(e) {
                 if (e) {
-                    grunt.log.warn('Destination (' + f.dest + ') failed. ' + e.msg);
+                    grunt.log.warn('Destination (' + f.dest + ') failed.');
+                    grunt.log.warn(e.message || e);
                 }
                 next();
             });
