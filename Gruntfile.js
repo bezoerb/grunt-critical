@@ -1,5 +1,6 @@
 // Generated on 2014-07-23 using generator-nodejs 2.0.1
 module.exports = function(grunt) {
+    'use strict';
     require('load-grunt-tasks')(grunt);
     grunt.initConfig({
 
@@ -18,7 +19,7 @@ module.exports = function(grunt) {
         jshint: {
             all: [
                 'Gruntfile.js',
-                'app/**/*.js',
+                'tasks/**/*.js',
                 'test/**/*.js'
             ],
             options: {
