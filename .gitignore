@@ -6,6 +6,7 @@ npm-debug.log
 
 ### Bower ###
 bower_components
-test/fixture/styles/bootstrap.55b74672.css
-test/fixture/styles/main.f3e3d7b9.css
+test/fixture/styles/bootstrap.144eafc9.css
+test/fixture/styles/bootstrap.d5879ac1.css
+test/fixture/styles/main.b5ff4680.css
 test/generated

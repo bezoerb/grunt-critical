@@ -22,19 +22,7 @@ module.exports = function (grunt) {
             base: ''
         });
 
-        // count files to eventualy increase max listeners to prevent EventEmitter memory leak warning
-        var numfiles = this.files.reduce(function(res,f) {
-            res = res.concat(f.src.filter(function(filepath) {
-                return grunt.file.exists(filepath);
-            }));
-            return res;
-        },[]).length;
-
-        if (numfiles > 10) {
-            grunt.verbose.ok('Increasing maxListeners to ' + (numfiles + 10));
-            // quick hack to prevent event stacking in tests
-            process.setMaxListeners(numfiles + 10);
-        }
+        process.setMaxListeners(0);
 
         // Loop files array
         // Iterate over all specified file groups.
@@ -70,7 +58,7 @@ module.exports = function (grunt) {
                 try {
                     critical[command](opts, function (err, output){
                         if (err) {
-                            cb(err);
+                            return cb(err);
                         }
                         grunt.file.write(f.dest, output);
                         // Print a success message.
@@ -83,8 +71,9 @@ module.exports = function (grunt) {
                 }
             },function(e) {
                 if (e) {
-                    grunt.log.warn('Destination (' + f.dest + ') failed.');
+                    grunt.fail.warn('Destination (' + f.dest + ') failed.');
                     grunt.log.warn(e.message || e);
+
                 }
                 next();
             });

@@ -6,11 +6,11 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         complexity: {
             generic: {
-                src: ['app/**/*.js'],
+                src: ['tasks/critical.js'],
                 options: {
                     errorsOnly: false,
-                    cyclometric: 6,       // default is 3
-                    halstead: 16,         // default is 8
+                    cyclometric: 3,       // default is 3
+                    halstead: 8,         // default is 8
                     maintainability: 100  // default is 100
                 }
             }
@@ -91,6 +91,7 @@ module.exports = function(grunt) {
                         'test/fixture/styles/main.css',
                         'test/fixture/styles/bootstrap.css'
                     ],
+                    minify: true,
                     width: 1300,
                     height: 900
                 },

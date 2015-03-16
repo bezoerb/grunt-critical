@@ -17,6 +17,9 @@ function exists(file) {
 }
 
 describe('critical',function(){
+
+
+
     it('generates minified critical-path CSS successfully', function () {
         var expected = read('expected/critical.css');
         var output = read('generated/critical.css');
