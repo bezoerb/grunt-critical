@@ -92,7 +92,6 @@ module.exports = function(grunt) {
                         'test/fixture/styles/main.css',
                         'test/fixture/styles/bootstrap.css'
                     ],
-                    minify: true,
                     width: 1300,
                     height: 900
                 },
