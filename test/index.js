@@ -34,6 +34,12 @@ describe('critical',function(){
         expect(output).to.equal(expected);
     });
 
+    it('generates html with minified critical-path CSS for multiple dimensions successfully', function () {
+        var expected = read('expected/index-dimensions.html');
+        var output = read('generated/index-dimensions.html');
+        expect(output).to.equal(expected);
+    });
+
 
     it('generates html with extracted minified critical-path CSS successfully', function () {
         var expected = read('expected/index-extract.html');

@@ -1,5 +1,5 @@
 // Generated on 2014-07-23 using generator-nodejs 2.0.1
-module.exports = function(grunt) {
+module.exports = function (grunt) {
     'use strict';
     require('load-grunt-tasks')(grunt);
     grunt.initConfig({
@@ -69,6 +69,29 @@ module.exports = function(grunt) {
                 },
                 src: 'test/fixture/index.html',
                 dest: 'test/generated/index-critical.html'
+            },
+            'test-dimensions': {
+                options: {
+                    minify: true,
+                    base: './',
+                    css: [
+                        'test/fixture/styles/main.css',
+                        'test/fixture/styles/bootstrap.css'
+                    ],
+                    dimensions: [
+                        {
+                            width: 1300,
+                            height: 900
+                        },
+                        {
+                            width: 500,
+                            height: 900
+                        }
+
+                    ]
+                },
+                src: 'test/fixture/index.html',
+                dest: 'test/generated/index-dimensions.html'
             },
             'test-extract': {
                 options: {
