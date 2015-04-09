@@ -1,8 +1,15 @@
 
+0.1.3 / 2015-04-09
+==================
+
+  * Minor output tweaks
+  * Added test for #11
+
 0.1.2 / 2015-03-04
 ==================
 
   * bumped critical & updated tests
+  * fix #9
   
 0.1.1 / 2015-01-14
 ==================
