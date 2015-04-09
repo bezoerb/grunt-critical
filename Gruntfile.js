@@ -73,11 +73,7 @@ module.exports = function (grunt) {
             'test-dimensions': {
                 options: {
                     minify: true,
-                    base: './',
-                    css: [
-                        'test/fixture/styles/main.css',
-                        'test/fixture/styles/bootstrap.css'
-                    ],
+                    base: 'test/fixture',
                     dimensions: [
                         {
                             width: 1300,

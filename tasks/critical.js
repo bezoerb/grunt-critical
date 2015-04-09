@@ -62,7 +62,7 @@ module.exports = function (grunt) {
                         }
                         grunt.file.write(f.dest, output);
                         // Print a success message.
-                        grunt.log.writeln('File "' + f.dest + '" created.');
+                        grunt.log.ok('File "' + f.dest + '" created.');
 
                         cb(null,output);
                     });
@@ -71,7 +71,7 @@ module.exports = function (grunt) {
                 }
             },function(e) {
                 if (e) {
-                    grunt.fail.warn('Destination (' + f.dest + ') failed.');
+                    grunt.fail.warn('File "' + f.dest + '" failed.');
                     grunt.log.warn(e.message || e);
 
                 }
