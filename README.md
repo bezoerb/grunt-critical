@@ -2,7 +2,7 @@
 
 Grunt plugin to extract & inline critical-path CSS from HTML
 
-[![build status](https://secure.travis-ci.org/bezoerb/grunt-critical.png)](http://travis-ci.org/bezoerb/grunt-critical)
+[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][depstat-image]][depstat-url]
 
 ## Getting Started
 
@@ -82,3 +82,13 @@ For a full list of options see [critical](https://github.com/addyosmani/critical
 ## License
 
 (C) Ben Zörb 2014, released under an MIT license
+
+
+[npm-url]: https://npmjs.org/package/grunt-critical
+[npm-image]: https://badge.fury.io/js/grunt-critical.svg
+
+[travis-url]: https://travis-ci.org/bezoerb/grunt-critical
+[travis-image]: https://travis-ci.org/bezoerb/grunt-critical.svg?branch=master
+
+[depstat-url]: https://david-dm.org/bezoerb/grunt-critical
+[depstat-image]: https://david-dm.org/bezoerb/grunt-critical.svg
