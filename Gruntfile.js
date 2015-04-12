@@ -119,6 +119,22 @@ module.exports = function (grunt) {
                     {expand: true, cwd: 'test/fixture/', src: ['multiple/**/*.html'], dest: 'test/generated/'}
                 ]
             },
+            //'test-multiple-minified': {
+            //    options: {
+            //        base: 'test/fixture',
+            //        minify: true,
+            //        css: [
+            //            'test/fixture/styles/main.css',
+            //            'test/fixture/styles/bootstrap.css'
+            //        ],
+            //        width: 1300,
+            //        height: 900
+            //    },
+            //    files: [
+            //        // makes all src relative to cwd
+            //        {expand: true, cwd: 'test/fixture/multiple', src: ['**/*.html'], dest: 'test/generated/multiple-min'}
+            //    ]
+            //},
             'test-external': {
                 options: {
                     base: 'test/fixture',
