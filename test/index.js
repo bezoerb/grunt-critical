@@ -46,7 +46,7 @@ describe('critical',function(){
         var output = read('generated/index-critical-extract.html');
         expect(output).to.equal(expected);
         expect(exists('fixture/styles/main.b5ff4680.css')).to.equal(true);
-        expect(exists('fixture/styles/bootstrap.d0dcaad4.css')).to.equal(true);
+        expect(exists('fixture/styles/bootstrap.144eafc9.css')).to.equal(true);
     });
 
     it('generates multiple html files without throwing "warning: possible EventEmitter memory leak detected"', function(){
@@ -58,14 +58,14 @@ describe('critical',function(){
         }
     });
 
-    //it('generates multiple html files with minified css', function(){
-    //    var output,expected = read('expected/index-multiple-minified.html');
-    //    for (var i=1; i<=12; i++) {
-    //
-    //        output = read('generated/multiple-min/index' + i + '.html');
-    //        expect(output).to.equal(expected.replace('<title>pagex</title>','<title>page' + i + '</title>'));
-    //    }
-    //});
+    it('generates multiple html files with minified css', function(){
+        var output,expected = read('expected/index-multiple-minified.html');
+        for (var i=1; i<=12; i++) {
+
+            output = read('generated/multiple-min/index' + i + '.html');
+            expect(output).to.equal(expected.replace('<title>pagex</title>','<title>page' + i + '</title>'));
+        }
+    });
 
     it('should keep external urls with extract option', function(){
         var expected = read('expected/index-external.html');
@@ -73,7 +73,7 @@ describe('critical',function(){
         expect(output).to.equal(expected);
 
         expect(exists('fixture/styles/main.b5ff4680.css')).to.equal(true);
-        expect(exists('fixture/styles/bootstrap.1956cc2d.css')).to.equal(true);
+        expect(exists('fixture/styles/bootstrap.d5879ac1.css')).to.equal(true);
     });
 
 });

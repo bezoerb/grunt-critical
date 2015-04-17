@@ -26,7 +26,7 @@ module.exports = function (grunt) {
 
         // Loop files array
         // Iterate over all specified file groups.
-        async.each(this.files,function(f,next) {
+        async.eachSeries(this.files,function(f,next) {
             options.base = path.normalize(options.base || '');
 
             // absolutize filepath
@@ -52,7 +52,7 @@ module.exports = function (grunt) {
             // choose wether to create raw css or complete html
             var command = (/\.(css|scss|less|styl)/.test(path.extname(f.dest))) ? 'generate' : 'generateInline';
 
-            async.each(srcFiles,function(src,cb){
+            async.eachSeries(srcFiles,function(src,cb){
                 var opts = extend({},options);
                 opts.src = path.resolve(src).replace(basereplace,'');
                 try {
