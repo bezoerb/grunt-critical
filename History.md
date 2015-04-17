@@ -1,4 +1,12 @@
 
+0.1.4 / 2015-04-17
+==================
+
+  * Fixed failing tests caused by local version mismatch
+  * Fixed some parallel issues
+  * Fixed tests for new critical version
+  * badges
+
 0.1.3 / 2015-04-09
 ==================
 
