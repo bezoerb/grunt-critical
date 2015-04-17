@@ -46,7 +46,7 @@ describe('critical',function(){
         var output = read('generated/index-critical-extract.html');
         expect(output).to.equal(expected);
         expect(exists('fixture/styles/main.b5ff4680.css')).to.equal(true);
-        expect(exists('fixture/styles/bootstrap.144eafc9.css')).to.equal(true);
+        expect(exists('fixture/styles/bootstrap.d0dcaad4.css')).to.equal(true);
     });
 
     it('generates multiple html files without throwing "warning: possible EventEmitter memory leak detected"', function(){
@@ -73,7 +73,7 @@ describe('critical',function(){
         expect(output).to.equal(expected);
 
         expect(exists('fixture/styles/main.b5ff4680.css')).to.equal(true);
-        expect(exists('fixture/styles/bootstrap.d5879ac1.css')).to.equal(true);
+        expect(exists('fixture/styles/bootstrap.1956cc2d.css')).to.equal(true);
     });
 
 });
