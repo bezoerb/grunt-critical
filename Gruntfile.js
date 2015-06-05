@@ -165,6 +165,21 @@ module.exports = function (grunt) {
                 },
                 src: 'test/fixture/index-external.html',
                 dest: 'test/generated/index-external.html'
+            },
+            'test-multiple-files-folder': {
+                options: {
+                    base: 'test/fixture',
+                    minify: true,
+                    width: 1300,
+                    height: 900,
+                css: [
+                    'test/fixture/styles/main.css',
+                    'test/fixture/styles/bootstrap.css'
+                ],
+                },
+                files: [
+                    {expand: true, cwd: 'test/fixture/multiple', src: ['*.html'], dest: 'test/generated/multiple-files-folder'}
+                ]
             }
         }
     });
