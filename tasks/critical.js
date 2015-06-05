@@ -55,14 +55,24 @@ module.exports = function (grunt) {
             async.eachSeries(srcFiles,function(src,cb){
                 var opts = extend({},options);
                 opts.src = path.resolve(src).replace(basereplace,'');
+
+                // check if the destination is a folder and not a file
+                var destination;
+                if (grunt.file.isDir(f.dest)) {
+
+                    destination = path.join(f.dest, src);
+                } else  {
+                    destination = f.dest;
+                }
+
                 try {
                     critical[command](opts, function (err, output){
                         if (err) {
                             return cb(err);
                         }
-                        grunt.file.write(f.dest, output);
+                        grunt.file.write(destination, output);
                         // Print a success message.
-                        grunt.log.ok('File "' + f.dest + '" created.');
+                        grunt.log.ok('File "' + destination + '" created.');
 
                         cb(null,output);
                     });
@@ -71,7 +81,7 @@ module.exports = function (grunt) {
                 }
             },function(e) {
                 if (e) {
-                    grunt.fail.warn('File "' + f.dest + '" failed.');
+                    grunt.fail.warn('File "' + destination + '" failed.');
                     grunt.log.warn(e.message || e);
 
                 }
