@@ -81,7 +81,7 @@ module.exports = function (grunt) {
                 }
             },function(e) {
                 if (e) {
-                    grunt.fail.warn('File "' + destination + '" failed.');
+                    grunt.fail.warn('File "' + f.dest + '" failed.');
                     grunt.log.warn(e.message || e);
 
                 }
