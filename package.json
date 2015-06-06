@@ -1,6 +1,6 @@
 {
   "name": "grunt-critical",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Grunt task to extract & inline critical-path CSS from HTML",
   "main": "index.js",
   "scripts": {
