@@ -13,6 +13,12 @@ module.exports = function (grunt) {
     var path = require('path');
     var async = require('async');
     var extend = require('util')._extend;
+    var fs = require('fs-extra');
+
+
+    function isDir(p) {
+        return typeof p === 'string' && (grunt.file.isDir(p) || /\/$/.test(p));
+    }
 
     grunt.registerMultiTask('critical', 'Extract & inline critical-path CSS from HTML', function () {
 
@@ -49,6 +55,11 @@ module.exports = function (grunt) {
                 return;
             }
 
+            if (srcFiles.length > 1 && !isDir(f.dest)) {
+                grunt.log.warn('Destination needs to be a directory for multiple src files');
+                return;
+            }
+
             // choose wether to create raw css or complete html
             var command = (/\.(css|scss|less|styl)/.test(path.extname(f.dest))) ? 'generate' : 'generateInline';
 
@@ -56,13 +67,9 @@ module.exports = function (grunt) {
                 var opts = extend({},options);
                 opts.src = path.resolve(src).replace(basereplace,'');
 
-                // check if the destination is a folder and not a file
-                var destination;
-                if (grunt.file.isDir(f.dest)) {
-
-                    destination = path.join(f.dest, src);
-                } else  {
-                    destination = f.dest;
+                var destination = f.dest;
+                if (isDir(f.dest)) {
+                    destination = path.join(f.dest, opts.src);
                 }
 
                 try {
@@ -70,7 +77,7 @@ module.exports = function (grunt) {
                         if (err) {
                             return cb(err);
                         }
-                        grunt.file.write(destination, output);
+                        fs.outputFileSync(destination, output);
                         // Print a success message.
                         grunt.log.ok('File "' + destination + '" created.');
 

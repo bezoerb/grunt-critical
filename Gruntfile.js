@@ -170,16 +170,15 @@ module.exports = function (grunt) {
                 options: {
                     base: 'test/fixture',
                     minify: true,
+                    css: [
+                        'test/fixture/styles/main.css',
+                        'test/fixture/styles/bootstrap.css'
+                    ],
                     width: 1300,
-                    height: 900,
-                css: [
-                    'test/fixture/styles/main.css',
-                    'test/fixture/styles/bootstrap.css'
-                ],
+                    height: 900
                 },
-                files: [
-                    {expand: true, cwd: 'test/fixture/multiple', src: ['*.html'], dest: 'test/generated/multiple-files-folder'}
-                ]
+                src: 'test/fixture/multiple/index{1,2,3}.html',
+                dest: 'test/generated/multiple-files-folder/'
             }
         }
     });
@@ -188,7 +187,7 @@ module.exports = function (grunt) {
     grunt.loadTasks('tasks');
 
 
-    grunt.registerTask('test', ['complexity', 'jshint', 'critical', 'simplemocha', 'watch']);
-    grunt.registerTask('ci', ['complexity', 'jshint', 'critical', 'simplemocha']);
+    grunt.registerTask('test', [ 'jshint', 'critical', 'simplemocha', 'watch']);
+    grunt.registerTask('ci', [ 'jshint', 'critical', 'simplemocha']);
     grunt.registerTask('default', ['test']);
 };

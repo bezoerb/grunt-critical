@@ -76,4 +76,14 @@ describe('critical',function(){
         expect(exists('fixture/styles/bootstrap.1956cc2d.css')).to.equal(true);
     });
 
+    it('should write files to folder when folder is specified as dest', function(){
+        var output,expected = read('expected/index-multiple-minified.html');
+
+        for (var i=1; i<=3; i++) {
+            expect(exists('generated/multiple-files-folder/multiple/index'+i+'.html')).to.equal(true);
+            output = read('generated/multiple-files-folder/multiple/index'+i+'.html');
+            expect(output).to.equal(expected.replace('<title>pagex</title>','<title>page' + i + '</title>'));
+        }
+    });
+
 });
