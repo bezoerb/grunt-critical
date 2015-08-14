@@ -56,6 +56,20 @@ module.exports = function (grunt) {
                 src: 'test/fixture/index.html',
                 dest: 'test/generated/critical.css'
             },
+            'test-ignore': {
+                options: {
+                    base: './',
+                    css: [
+                        'test/fixture/styles/main.css',
+                        'test/fixture/styles/bootstrap.css'
+                    ],
+                    width: 1300,
+                    height: 900,
+                    ignore: ['@media',/jumbotron/]
+                },
+                src: 'test/fixture/index.html',
+                dest: 'test/generated/critical-ignore.css'
+            },
             'test-html': {
                 options: {
                     minify: true,

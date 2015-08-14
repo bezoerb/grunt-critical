@@ -86,4 +86,10 @@ describe('critical',function(){
         }
     });
 
+    it('should consider ignore option', function(){
+        var expected = read('expected/critical-ignore.css');
+        var output = read('generated/critical-ignore.css');
+        expect(output).to.equal(expected);
+    });
+
 });

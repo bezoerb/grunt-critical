@@ -32,14 +32,14 @@ module.exports = function (grunt) {
 
         // Loop files array
         // Iterate over all specified file groups.
-        async.eachSeries(this.files,function(f,next) {
+        async.eachSeries(this.files, function (f, next) {
             options.base = path.normalize(options.base || '');
 
             // absolutize filepath
             var basereplace = path.resolve(options.base || './') + '/';
 
             // Concat specified files.
-            var srcFiles = f.src.filter(function(filepath) {
+            var srcFiles = f.src.filter(function (filepath) {
                 // Warn on and remove invalid source files (if nonull was set).
                 if (!grunt.file.exists(filepath)) {
                     grunt.log.warn('Source file "' + filepath + '" not found.');
@@ -60,33 +60,29 @@ module.exports = function (grunt) {
                 return;
             }
 
-            // choose wether to create raw css or complete html
-            var command = (/\.(css|scss|less|styl)/.test(path.extname(f.dest))) ? 'generate' : 'generateInline';
 
-            async.eachSeries(srcFiles,function(src,cb){
-                var opts = extend({},options);
-                opts.src = path.resolve(src).replace(basereplace,'');
+            async.eachSeries(srcFiles, function (src, cb) {
+                var opts = extend({
+                    inline:  !/\.(css|scss|less|styl)/.test(path.extname(f.dest))
+                }, options);
+                opts.src = path.resolve(src).replace(basereplace, '');
 
                 var destination = f.dest;
                 if (isDir(f.dest)) {
                     destination = path.join(f.dest, opts.src);
                 }
 
-                try {
-                    critical[command](opts, function (err, output){
-                        if (err) {
-                            return cb(err);
-                        }
-                        fs.outputFileSync(destination, output);
-                        // Print a success message.
-                        grunt.log.ok('File "' + destination + '" created.');
+                critical.generate(opts).then(function (output) {
+                    fs.outputFileSync(destination, output);
+                    // Print a success message.
+                    grunt.log.ok('File "' + destination + '" created.');
 
-                        cb(null,output);
-                    });
-                } catch (err) {
+                    cb(null, output);
+                }).error(function (err) {
                     cb(err);
-                }
-            },function(e) {
+                });
+
+            }, function (e) {
                 if (e) {
                     grunt.fail.warn('File "' + f.dest + '" failed.');
                     grunt.log.warn(e.message || e);
@@ -94,7 +90,7 @@ module.exports = function (grunt) {
                 }
                 next();
             });
-        },done);
+        }, done);
     });
 
 };
