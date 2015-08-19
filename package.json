@@ -28,7 +28,9 @@
   "dependencies": {
     "async": "^1.2.0",
     "critical": "^0.6.0",
-    "fs-extra": "^0.23.1"
+    "fs-extra": "^0.23.1",
+    "glob": "^5.0.14",
+    "lodash": "^3.10.1"
   },
   "devDependencies": {
     "chai": "^3.0.0",

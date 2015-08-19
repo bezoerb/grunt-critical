@@ -92,4 +92,12 @@ describe('critical',function(){
         expect(output).to.equal(expected);
     });
 
+    it('should allow glob pattern for css option', function(){
+        var expected = read('expected/critical.css');
+        var output1 = read('generated/critical-glob.css');
+        var output2 = read('generated/critical-glob2.css');
+        expect(output1).to.equal(expected);
+        expect(output2).to.equal(expected);
+    });
+
 });

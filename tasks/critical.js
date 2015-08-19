@@ -12,9 +12,9 @@ module.exports = function (grunt) {
     var critical = require('critical');
     var path = require('path');
     var async = require('async');
-    var extend = require('util')._extend;
     var fs = require('fs-extra');
-
+    var _ = require('lodash');
+    var glob = require('glob');
 
     function isDir(p) {
         return typeof p === 'string' && (grunt.file.isDir(p) || /\/$/.test(p));
@@ -60,9 +60,27 @@ module.exports = function (grunt) {
                 return;
             }
 
+            // use glob for css option
+            if (options.css) {
+                if (!_.isArray(options.css)) {
+                    options.css = [options.css];
+                }
+
+                options.css = _.chain(options.css)
+                    .compact()
+                    .map(function(css){
+                        return glob.sync(css,{
+                            nosort: true
+                        });
+                    })
+                    .flatten()
+                    .value();
+            }
+
+            grunt.log.debug('CSS',options.css);
 
             async.eachSeries(srcFiles, function (src, cb) {
-                var opts = extend({
+                var opts = _.assign({
                     inline:  !/\.(css|scss|less|styl)/.test(path.extname(f.dest))
                 }, options);
                 opts.src = path.resolve(src).replace(basereplace, '');
