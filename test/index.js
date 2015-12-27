@@ -46,7 +46,7 @@ describe('critical',function(){
         var output = read('generated/index-critical-extract.html');
         expect(output).to.equal(expected);
         expect(exists('fixture/styles/main.b5ff4680.css')).to.equal(true);
-        expect(exists('fixture/styles/bootstrap.d0dcaad4.css')).to.equal(true);
+        expect(exists('fixture/styles/bootstrap.d87cfcd2.css')).to.equal(true);
     });
 
     it('generates multiple html files without throwing "warning: possible EventEmitter memory leak detected"', function(){
@@ -73,7 +73,7 @@ describe('critical',function(){
         expect(output).to.equal(expected);
 
         expect(exists('fixture/styles/main.b5ff4680.css')).to.equal(true);
-        expect(exists('fixture/styles/bootstrap.1956cc2d.css')).to.equal(true);
+        expect(exists('fixture/styles/bootstrap.7243c5e5.css')).to.equal(true);
     });
 
     it('should write files to folder when folder is specified as dest', function(){
@@ -98,6 +98,15 @@ describe('critical',function(){
         var output2 = read('generated/critical-glob2.css');
         expect(output1).to.equal(expected);
         expect(output2).to.equal(expected);
+    });
+
+    it('should allow remote sources', function(){
+        var expectedCss = read('expected/critical.css');
+        var expectedHtml = read('expected/index-minified.html');
+        var outputCss = read('generated/remote.css');
+        var outputHtml = read('generated/remote.html');
+        expect(outputCss).to.equal(expectedCss);
+        expect(outputHtml).to.equal(expectedHtml);
     });
 
 });

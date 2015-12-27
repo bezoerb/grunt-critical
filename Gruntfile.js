@@ -1,4 +1,8 @@
 // Generated on 2014-07-23 using generator-nodejs 2.0.1
+var finalhandler = require('finalhandler');
+var http = require('http');
+var serveStatic = require('serve-static');
+
 module.exports = function (grunt) {
     'use strict';
     require('load-grunt-tasks')(grunt);
@@ -87,7 +91,7 @@ module.exports = function (grunt) {
                     ],
                     width: 1300,
                     height: 900,
-                    ignore: ['@media',/jumbotron/]
+                    ignore: ['@media', /jumbotron/]
                 },
                 src: 'test/fixture/index.html',
                 dest: 'test/generated/critical-ignore.css'
@@ -184,7 +188,12 @@ module.exports = function (grunt) {
                 },
                 files: [
                     // makes all src relative to cwd
-                    {expand: true, cwd: 'test/fixture/multiple', src: ['**/*.html'], dest: 'test/generated/multiple-min'}
+                    {
+                        expand: true,
+                        cwd: 'test/fixture/multiple',
+                        src: ['**/*.html'],
+                        dest: 'test/generated/multiple-min'
+                    }
                 ]
             },
             'test-external': {
@@ -215,6 +224,31 @@ module.exports = function (grunt) {
                 },
                 src: 'test/fixture/multiple/index{1,2,3}.html',
                 dest: 'test/generated/multiple-files-folder/'
+            },
+            'test-remote-css': {
+                options: {
+                    base: './',
+                    css: 'test/fixture/styles/{main,bootstrap}.css',
+                    width: 1300,
+                    height: 900
+                },
+                src: 'http://localhost:3000/index.html',
+                dest: 'test/generated/remote.css'
+
+            },
+            'test-remote-html': {
+                options: {
+                    minify: true,
+                    base: './',
+                    css: [
+                        'test/fixture/styles/main.css',
+                        'test/fixture/styles/bootstrap.css'
+                    ],
+                    width: 1300,
+                    height: 900
+                },
+                src: 'http://localhost:3000/index.html',
+                dest: 'test/generated/remote.html'
             }
         }
     });
@@ -222,8 +256,24 @@ module.exports = function (grunt) {
     // Actually load this plugin's task(s).
     grunt.loadTasks('tasks');
 
+    var server;
+    grunt.registerTask('startServer', function () {
+        var serve = serveStatic('test/fixture', {'index': ['index.html', 'index.htm']});
 
-    grunt.registerTask('test', [ 'jshint', 'critical', 'simplemocha', 'watch']);
-    grunt.registerTask('ci', [ 'jshint', 'critical', 'simplemocha']);
+        server = http.createServer(function (req, res) {
+            var done = finalhandler(req, res);
+            serve(req, res, done);
+        });
+        server.listen(3000);
+    });
+
+    grunt.registerTask('stopServer', function () {
+
+        server.close();
+    });
+
+
+    grunt.registerTask('test', ['jshint', 'startServer', 'critical', 'stopServer', 'simplemocha', 'watch']);
+    grunt.registerTask('ci', ['jshint', 'startServer', 'critical', 'stopServer', 'simplemocha']);
     grunt.registerTask('default', ['test']);
 };

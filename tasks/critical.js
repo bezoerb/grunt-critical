@@ -20,6 +20,16 @@ module.exports = function (grunt) {
         return typeof p === 'string' && (grunt.file.isDir(p) || /\/$/.test(p));
     }
 
+    /**
+     * Check wether a resource is external or not
+     * @param href
+     * @returns {boolean}
+     */
+    function isExternal(href) {
+        return /(^\/\/)|(:\/\/)/.test(href);
+    }
+
+
     grunt.registerMultiTask('critical', 'Extract & inline critical-path CSS from HTML', function () {
 
         var done = this.async();
@@ -41,13 +51,17 @@ module.exports = function (grunt) {
             // Concat specified files.
             var srcFiles = f.src.filter(function (filepath) {
                 // Warn on and remove invalid source files (if nonull was set).
-                if (!grunt.file.exists(filepath)) {
+                if (!grunt.file.exists(filepath) && !isExternal(filepath)) {
                     grunt.log.warn('Source file "' + filepath + '" not found.');
                     return false;
                 } else {
                     return true;
                 }
             });
+
+            srcFiles = srcFiles.concat(f.orig.src.filter(function (filepath) {
+                return isExternal(filepath);
+            }));
 
             // nothing to do
             if (srcFiles.length === 0) {
@@ -77,18 +91,27 @@ module.exports = function (grunt) {
                     .value();
             }
 
+            grunt.log.debug('SOURCE',srcFiles);
+
             grunt.log.debug('CSS',options.css);
 
             async.eachSeries(srcFiles, function (src, cb) {
                 var opts = _.assign({
                     inline:  !/\.(css|scss|less|styl)/.test(path.extname(f.dest))
                 }, options);
-                opts.src = path.resolve(src).replace(basereplace, '');
+
+                if (!isExternal(src)) {
+                    opts.src = path.resolve(src).replace(basereplace, '');
+                } else {
+                    opts.src = src;
+                }
 
                 var destination = f.dest;
                 if (isDir(f.dest)) {
                     destination = path.join(f.dest, opts.src);
                 }
+                grunt.log.debug('opts',opts);
+
 
                 critical.generate(opts).then(function (output) {
                     fs.outputFileSync(destination, output);
@@ -97,6 +120,7 @@ module.exports = function (grunt) {
 
                     cb(null, output);
                 }).error(function (err) {
+                    grunt.log.error('File "' + destination + '" failed.',err.message || err);
                     cb(err);
                 });
 
