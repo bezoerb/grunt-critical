@@ -28,8 +28,8 @@
   "dependencies": {
     "async": "^1.2.0",
     "critical": "^0.7.0",
-    "fs-extra": "^0.23.1",
-    "glob": "^5.0.14",
+    "fs-extra": "^0.26.3",
+    "glob": "^6.0.2",
     "lodash": "^3.10.1"
   },
   "devDependencies": {
