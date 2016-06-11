@@ -35,7 +35,7 @@ Use the `grunt-critical` task by specifying a target destination (file) for your
 Along-side, specify the input HTML file you would like scanned as well as the width and height of the critical viewport.
 In this case `test/fixture/index.html`.
 
-```shell
+```js
 critical: {
     test: {
         options: {
@@ -57,7 +57,7 @@ If the `dest` file is a stylesheet, the resulting critical-path css is saved to 
 If `dest` points to an Markup file (HTML, PHP, etc.) the resulting CSS gets inlined and the exiting stylesheets are
 wrapped in a javascript function to load them asynchronously as well as a noscript block for users with javascript disabled
 
-```shell
+```js
 critical: {
     test: {
         options: {

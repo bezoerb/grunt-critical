@@ -1,4 +1,3 @@
-
 0.1.7 / 2015-08-19
 ==================
 
@@ -6,12 +5,12 @@
 
 0.1.6 / 2015-08-14
 ==================
-  
+
   * Bump deps
-  
+
 0.1.5 / 2015-06-07
 ==================
-  
+
   * Fixed tests
   * Bump deps
   * Added test case for multiple files to a single folder [Dean]
@@ -37,7 +36,7 @@
 
   * bumped critical & updated tests
   * fix #9
-  
+
 0.1.1 / 2015-01-14
 ==================
 
