@@ -2,13 +2,15 @@
   "name": "grunt-critical",
   "version": "0.2.0",
   "description": "Grunt task to extract & inline critical-path CSS from HTML",
-  "main": "index.js",
-  "scripts": {
-    "test": "node_modules/.bin/grunt ci"
+  "author": "Ben Zörb <ben@sommerlaune.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bezoerb/grunt-critical/issues"
   },
+  "homepage": "https://github.com/bezoerb/grunt-critical#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bezoerb/grunt-critical"
+    "url": "git+https://github.com/bezoerb/grunt-critical.git"
   },
   "keywords": [
     "critical-path",
@@ -16,30 +18,24 @@
     "perf",
     "gruntplugin"
   ],
-  "author": "Ben Zörb <ben@sommerlaune.com>",
-  "licenses": [
-    {
-      "type": "MIT"
-    }
-  ],
-  "bugs": {
-    "url": "https://github.com/bezoerb/grunt-critical/issues"
+  "main": "tasks/critical.js",
+  "scripts": {
+    "test": "grunt ci"
   },
   "dependencies": {
-    "async": "^1.2.0",
+    "async": "^1.5.2",
     "critical": "^0.7.0",
-    "fs-extra": "^0.26.3",
-    "glob": "^6.0.2",
-    "lodash": "^3.10.1"
+    "fs-extra": "^0.30.0",
+    "glob": "^7.0.3",
+    "lodash": "^4.13.1"
   },
   "devDependencies": {
     "chai": "^3.0.0",
     "finalhandler": "^0.4.1",
-    "grunt": "~0.4.1",
-    "grunt-cli": "~0.1.9",
+    "grunt": "^1.0.1",
     "grunt-complexity": "^0.3.0",
-    "grunt-contrib-jshint": "^0.11.0",
-    "grunt-contrib-watch": "^0.6.1",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
     "grunt-simple-mocha": "^0.4.0",
     "http": "0.0.0",
     "load-grunt-tasks": "^3.1.0",
