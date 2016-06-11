@@ -15,7 +15,7 @@ module.exports = function (grunt) {
                 options: {
                     errorsOnly: false,
                     cyclometric: 3,       // default is 3
-                    halstead: 8,         // default is 8
+                    halstead: 8,          // default is 8
                     maintainability: 100  // default is 100
                 }
             }
@@ -170,10 +170,13 @@ module.exports = function (grunt) {
                     width: 1300,
                     height: 900
                 },
-                files: [
-                    // makes all src relative to cwd
-                    {expand: true, cwd: 'test/fixture/', src: ['multiple/**/*.html'], dest: 'test/generated/'}
-                ]
+                // makes all src relative to cwd
+                files: [{
+                    expand: true,
+                    cwd: 'test/fixture/',
+                    src: ['multiple/**/*.html'],
+                    dest: 'test/generated/'
+                }]
             },
             'test-multiple-minified': {
                 options: {
@@ -186,15 +189,13 @@ module.exports = function (grunt) {
                     width: 1300,
                     height: 900
                 },
-                files: [
-                    // makes all src relative to cwd
-                    {
-                        expand: true,
-                        cwd: 'test/fixture/multiple',
-                        src: ['**/*.html'],
-                        dest: 'test/generated/multiple-min'
-                    }
-                ]
+                // makes all src relative to cwd
+                files: [{
+                    expand: true,
+                    cwd: 'test/fixture/multiple',
+                    src: ['**/*.html'],
+                    dest: 'test/generated/multiple-min'
+                }]
             },
             'test-external': {
                 options: {
@@ -258,7 +259,9 @@ module.exports = function (grunt) {
 
     var server;
     grunt.registerTask('startServer', function () {
-        var serve = serveStatic('test/fixture', {'index': ['index.html', 'index.htm']});
+        var serve = serveStatic('test/fixture', {
+            index: ['index.html', 'index.htm']
+        });
 
         server = http.createServer(function (req, res) {
             var done = finalhandler(req, res);
