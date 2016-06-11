@@ -82,8 +82,8 @@ module.exports = function (grunt) {
 
                 options.css = _.chain(options.css)
                     .compact()
-                    .map(function(css){
-                        return glob.sync(css,{
+                    .map(function(css) {
+                        return glob.sync(css, {
                             nosort: true
                         });
                     })
@@ -91,13 +91,13 @@ module.exports = function (grunt) {
                     .value();
             }
 
-            grunt.log.debug('SOURCE',srcFiles);
+            grunt.log.debug('SOURCE', srcFiles);
 
-            grunt.log.debug('CSS',options.css);
+            grunt.log.debug('CSS', options.css);
 
             async.eachSeries(srcFiles, function (src, cb) {
                 var opts = _.assign({
-                    inline:  !/\.(css|scss|less|styl)/.test(path.extname(f.dest))
+                    inline: !/\.(css|scss|less|styl)/.test(path.extname(f.dest))
                 }, options);
 
                 if (!isExternal(src)) {
@@ -110,7 +110,7 @@ module.exports = function (grunt) {
                 if (isDir(f.dest)) {
                     destination = path.join(f.dest, opts.src);
                 }
-                grunt.log.debug('opts',opts);
+                grunt.log.debug('opts', opts);
 
 
                 critical.generate(opts).then(function (output) {
@@ -120,7 +120,7 @@ module.exports = function (grunt) {
 
                     cb(null, output);
                 }).error(function (err) {
-                    grunt.log.error('File "' + destination + '" failed.',err.message || err);
+                    grunt.log.error('File "' + destination + '" failed.', err.message || err);
                     cb(err);
                 });
 

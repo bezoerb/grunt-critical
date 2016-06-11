@@ -1,25 +1,26 @@
+/* jshint mocha: true */
+
 'use strict';
+
 var expect = require('chai').expect,
     path = require('path'),
     fs = require('fs');
 
 
 function strip(string) {
-    return string.replace(/[\r\n]+/mg,' ').replace(/\s+/gm,'');
+    return string.replace(/[\r\n]+/mg, ' ').replace(/\s+/gm, '');
 }
 
 function read(file) {
-    return strip(fs.readFileSync(path.join(__dirname,file),'utf8'));
+    return strip(fs.readFileSync(path.join(__dirname, file), 'utf8'));
 }
 
 function exists(file) {
-    return fs.existsSync(path.join(__dirname,file));
+    return fs.existsSync(path.join(__dirname, file));
 
 }
 
-describe('critical',function(){
-
-
+describe('critical', function() {
 
     it('generates minified critical-path CSS successfully', function () {
         var expected = read('expected/critical.css');
@@ -49,25 +50,25 @@ describe('critical',function(){
         expect(exists('fixture/styles/bootstrap.d87cfcd2.css')).to.equal(true);
     });
 
-    it('generates multiple html files without throwing "warning: possible EventEmitter memory leak detected"', function(){
-        var output,expected = read('expected/index-multiple.html');
-        for (var i=1; i<=5; i++) {
+    it('generates multiple html files without throwing "warning: possible EventEmitter memory leak detected"', function() {
+        var output, expected = read('expected/index-multiple.html');
+        for (var i = 1; i <= 5; i++) {
 
             output = read('generated/multiple/index' + i + '.html');
-            expect(output).to.equal(expected.replace('<title>pagex</title>','<title>page' + i + '</title>'));
+            expect(output).to.equal(expected.replace('<title>pagex</title>', '<title>page' + i + '</title>'));
         }
     });
 
-    it('generates multiple html files with minified css', function(){
-        var output,expected = read('expected/index-multiple-minified.html');
-        for (var i=1; i<=12; i++) {
+    it('generates multiple html files with minified css', function() {
+        var output, expected = read('expected/index-multiple-minified.html');
+        for (var i = 1; i <= 12; i++) {
 
             output = read('generated/multiple-min/index' + i + '.html');
-            expect(output).to.equal(expected.replace('<title>pagex</title>','<title>page' + i + '</title>'));
+            expect(output).to.equal(expected.replace('<title>pagex</title>', '<title>page' + i + '</title>'));
         }
     });
 
-    it('should keep external urls with extract option', function(){
+    it('should keep external urls with extract option', function() {
         var expected = read('expected/index-external.html');
         var output = read('generated/index-external.html');
         expect(output).to.equal(expected);
@@ -76,23 +77,23 @@ describe('critical',function(){
         expect(exists('fixture/styles/bootstrap.7243c5e5.css')).to.equal(true);
     });
 
-    it('should write files to folder when folder is specified as dest', function(){
-        var output,expected = read('expected/index-multiple-minified.html');
+    it('should write files to folder when folder is specified as dest', function() {
+        var output, expected = read('expected/index-multiple-minified.html');
 
-        for (var i=1; i<=3; i++) {
+        for (var i = 1; i <= 3; i++) {
             expect(exists('generated/multiple-files-folder/multiple/index'+i+'.html')).to.equal(true);
             output = read('generated/multiple-files-folder/multiple/index'+i+'.html');
-            expect(output).to.equal(expected.replace('<title>pagex</title>','<title>page' + i + '</title>'));
+            expect(output).to.equal(expected.replace('<title>pagex</title>', '<title>page' + i + '</title>'));
         }
     });
 
-    it('should consider ignore option', function(){
+    it('should consider ignore option', function() {
         var expected = read('expected/critical-ignore.css');
         var output = read('generated/critical-ignore.css');
         expect(output).to.equal(expected);
     });
 
-    it('should allow glob pattern for css option', function(){
+    it('should allow glob pattern for css option', function() {
         var expected = read('expected/critical.css');
         var output1 = read('generated/critical-glob.css');
         var output2 = read('generated/critical-glob2.css');
@@ -100,7 +101,7 @@ describe('critical',function(){
         expect(output2).to.equal(expected);
     });
 
-    it('should allow remote sources', function(){
+    it('should allow remote sources', function() {
         var expectedCss = read('expected/critical.css');
         var expectedHtml = read('expected/index-minified.html');
         var outputCss = read('generated/remote.css');
