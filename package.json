@@ -2,13 +2,15 @@
   "name": "grunt-critical",
   "version": "0.2.0",
   "description": "Grunt task to extract & inline critical-path CSS from HTML",
-  "main": "index.js",
-  "scripts": {
-    "test": "node_modules/.bin/grunt ci"
+  "author": "Ben Zörb <ben@sommerlaune.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bezoerb/grunt-critical/issues"
   },
+  "homepage": "https://github.com/bezoerb/grunt-critical#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bezoerb/grunt-critical"
+    "url": "git+https://github.com/bezoerb/grunt-critical.git"
   },
   "keywords": [
     "critical-path",
@@ -16,14 +18,9 @@
     "perf",
     "gruntplugin"
   ],
-  "author": "Ben Zörb <ben@sommerlaune.com>",
-  "licenses": [
-    {
-      "type": "MIT"
-    }
-  ],
-  "bugs": {
-    "url": "https://github.com/bezoerb/grunt-critical/issues"
+  "main": "tasks/critical.js",
+  "scripts": {
+    "test": "grunt ci"
   },
   "dependencies": {
     "async": "^1.2.0",
