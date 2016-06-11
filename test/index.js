@@ -12,7 +12,11 @@ function strip(string) {
 }
 
 function read(file) {
-    return strip(fs.readFileSync(path.join(__dirname, file), 'utf8'));
+  var contents = strip(fs.readFileSync(path.join(__dirname, file), 'utf8'));
+  if (process.platform === 'win32') {
+    contents = contents.replace(/\r\n/g, '\n');
+  }
+  return contents;
 }
 
 function exists(file) {
@@ -20,8 +24,7 @@ function exists(file) {
 
 }
 
-describe('critical', function() {
-
+describe('critical',function(){
     it('generates minified critical-path CSS successfully', function () {
         var expected = read('expected/critical.css');
         var output = read('generated/critical.css');
@@ -47,7 +50,7 @@ describe('critical', function() {
         var output = read('generated/index-critical-extract.html');
         expect(output).to.equal(expected);
         expect(exists('fixture/styles/main.b5ff4680.css')).to.equal(true);
-        expect(exists('fixture/styles/bootstrap.d87cfcd2.css')).to.equal(true);
+        expect(exists('fixture/styles/bootstrap.232286a8.css')).to.equal(true);
     });
 
     it('generates multiple html files without throwing "warning: possible EventEmitter memory leak detected"', function() {
@@ -74,7 +77,7 @@ describe('critical', function() {
         expect(output).to.equal(expected);
 
         expect(exists('fixture/styles/main.b5ff4680.css')).to.equal(true);
-        expect(exists('fixture/styles/bootstrap.7243c5e5.css')).to.equal(true);
+        expect(exists('fixture/styles/bootstrap.ab96ce64.css')).to.equal(true);
     });
 
     it('should write files to folder when folder is specified as dest', function() {
