@@ -45,19 +45,19 @@ body {
         max-width: 730px;
     }
 
-    
+
     .header,
     .marketing{
         padding-left: 0;
         padding-right: 0;
     }
 
-    
+
     .header {
         margin-bottom: 30px;
     }
-    
-    
+
+
     .jumbotron {
         border-bottom: 0;
     }
