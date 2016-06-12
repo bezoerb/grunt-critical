@@ -16,10 +16,6 @@ module.exports = function (grunt) {
     var _ = require('lodash');
     var glob = require('glob');
 
-    function isDir(p) {
-        return typeof p === 'string' && (grunt.file.isDir(p) || /\/$/.test(p));
-    }
-
     /**
      * Check wether a resource is external or not
      * @param href
@@ -69,7 +65,7 @@ module.exports = function (grunt) {
                 return;
             }
 
-            if (srcFiles.length > 1 && !isDir(f.dest)) {
+            if (srcFiles.length > 1 && !grunt.file.isDir(f.dest)) {
                 grunt.log.warn('Destination needs to be a directory for multiple src files');
                 return;
             }
@@ -107,7 +103,7 @@ module.exports = function (grunt) {
                 }
 
                 var destination = f.dest;
-                if (isDir(f.dest)) {
+                if (grunt.file.isDir(f.dest)) {
                     destination = path.join(f.dest, opts.src);
                 }
                 grunt.log.debug('opts', opts);
