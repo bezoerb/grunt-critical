@@ -12,25 +12,23 @@ function strip(string) {
 }
 
 function read(file) {
-  var contents = strip(fs.readFileSync(path.join(__dirname, file), 'utf8'));
-  if (process.platform === 'win32') {
-    contents = contents.replace(/\r\n/g, '\n');
-  }
-  return contents;
+    var contents = strip(fs.readFileSync(path.join(__dirname, file), 'utf8'));
+    if (process.platform === 'win32') {
+        contents = contents.replace(/\r\n/g, '\n');
+    }
+    return contents;
 }
 
 function exists(file) {
     return fs.existsSync(path.join(__dirname, file));
-
 }
 
-describe('critical',function(){
+describe('critical', function() {
     it('generates minified critical-path CSS successfully', function () {
         var expected = read('expected/critical.css');
         var output = read('generated/critical.css');
         expect(output).to.equal(expected);
     });
-
 
     it('generates html with minified critical-path CSS successfully', function () {
         var expected = read('expected/index-minified.html');
@@ -44,7 +42,6 @@ describe('critical',function(){
         expect(output).to.equal(expected);
     });
 
-
     it('generates html with extracted minified critical-path CSS successfully', function () {
         var expected = read('expected/index-extract.html');
         var output = read('generated/index-critical-extract.html');
@@ -54,18 +51,18 @@ describe('critical',function(){
     });
 
     it('generates multiple html files without throwing "warning: possible EventEmitter memory leak detected"', function() {
-        var output, expected = read('expected/index-multiple.html');
+        var expected = read('expected/index-multiple.html');
+        var output;
         for (var i = 1; i <= 5; i++) {
-
             output = read('generated/multiple/index' + i + '.html');
             expect(output).to.equal(expected.replace('<title>pagex</title>', '<title>page' + i + '</title>'));
         }
     });
 
     it('generates multiple html files with minified css', function() {
-        var output, expected = read('expected/index-multiple-minified.html');
+        var expected = read('expected/index-multiple-minified.html');
+        var output;
         for (var i = 1; i <= 12; i++) {
-
             output = read('generated/multiple-min/index' + i + '.html');
             expect(output).to.equal(expected.replace('<title>pagex</title>', '<title>page' + i + '</title>'));
         }
@@ -81,11 +78,11 @@ describe('critical',function(){
     });
 
     it('should write files to folder when folder is specified as dest', function() {
-        var output, expected = read('expected/index-multiple-minified.html');
-
+        var expected = read('expected/index-multiple.html');
+        var output;
         for (var i = 1; i <= 3; i++) {
-            expect(exists('generated/multiple-files-folder/multiple/index'+i+'.html')).to.equal(true);
-            output = read('generated/multiple-files-folder/multiple/index'+i+'.html');
+            expect(exists('generated/multiple-files-folder/index' + i + '.html')).to.equal(true);
+            output = read('generated/multiple-files-folder/index' + i + '.html');
             expect(output).to.equal(expected.replace('<title>pagex</title>', '<title>page' + i + '</title>'));
         }
     });

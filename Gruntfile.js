@@ -215,7 +215,6 @@ module.exports = function (grunt) {
             'test-multiple-files-folder': {
                 options: {
                     base: 'test/fixture',
-                    minify: true,
                     css: [
                         'test/fixture/styles/main.css',
                         'test/fixture/styles/bootstrap.css'
@@ -223,8 +222,12 @@ module.exports = function (grunt) {
                     width: 1300,
                     height: 900
                 },
-                src: 'test/fixture/multiple/index{1,2,3}.html',
-                dest: 'test/generated/multiple-files-folder/'
+                files: [{
+                    expand: true,
+                    cwd: 'test/fixture/multiple',
+                    src: ['index{1,2,3}.html'],
+                    dest: 'test/generated/multiple-files-folder'
+                }]
             },
             'test-remote-css': {
                 options: {
