@@ -1,7 +1,7 @@
 {
   "name": "grunt-critical",
   "description": "Grunt task to extract & inline critical-path CSS from HTML",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "Ben Zörb <ben@sommerlaune.com>",
   "license": "MIT",
   "bugs": {
