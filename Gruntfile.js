@@ -72,16 +72,6 @@ module.exports = function (grunt) {
                 src: 'test/fixture/index.html',
                 dest: 'test/generated/critical-glob.css'
             },
-            'test-css-glob2': {
-                options: {
-                    base: './',
-                    css: 'test/fixture/styles/{main,bootstrap}.css',
-                    width: 1300,
-                    height: 900
-                },
-                src: 'test/fixture/index.html',
-                dest: 'test/generated/critical-glob2.css'
-            },
             'test-ignore': {
                 options: {
                     base: './',
@@ -225,7 +215,7 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: 'test/fixture/multiple',
-                    src: ['index{1,2,3}.html'],
+                    src: ['**/*.html'],
                     dest: 'test/generated/multiple-files-folder'
                 }]
             },

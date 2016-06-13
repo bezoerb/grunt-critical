@@ -64,7 +64,7 @@ describe('critical', function() {
         var expected = readFile('expected/index-multiple-minified.html');
         var output;
 
-        for (var i = 1; i <= 12; i++) {
+        for (var i = 1; i <= 5; i++) {
             output = readFile('generated/multiple-min/index' + i + '.html');
             expect(output).to.equal(expected.replace('<title>page x</title>', '<title>page ' + i + '</title>'));
         }
@@ -83,7 +83,7 @@ describe('critical', function() {
         var expected = readFile('expected/index-multiple.html');
         var output;
 
-        for (var i = 1; i <= 3; i++) {
+        for (var i = 1; i <= 5; i++) {
             expect(fileExists('generated/multiple-files-folder/index' + i + '.html')).to.equal(true);
             output = readFile('generated/multiple-files-folder/index' + i + '.html');
             expect(output).to.equal(expected.replace('<title>page x</title>', '<title>page ' + i + '</title>'));
@@ -99,11 +99,9 @@ describe('critical', function() {
 
     it('should allow glob pattern for css option', function() {
         var expected = readFile('expected/critical.css');
-        var output1 = readFile('generated/critical-glob.css');
-        var output2 = readFile('generated/critical-glob2.css');
+        var output = readFile('generated/critical-glob.css');
 
-        expect(output1).to.equal(expected);
-        expect(output2).to.equal(expected);
+        expect(output).to.equal(expected);
     });
 
     it('should allow remote sources', function() {
