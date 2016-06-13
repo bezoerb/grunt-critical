@@ -1,10 +1,10 @@
-// Generated on 2014-07-23 using generator-nodejs 2.0.1
+'use strict';
+
 var finalhandler = require('finalhandler');
 var http = require('http');
 var serveStatic = require('serve-static');
 
 module.exports = function (grunt) {
-    'use strict';
     require('load-grunt-tasks')(grunt);
     grunt.initConfig({
 
@@ -274,7 +274,6 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('stopServer', function () {
-
         server.close();
     });
 
