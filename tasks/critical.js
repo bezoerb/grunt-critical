@@ -12,9 +12,9 @@ module.exports = function (grunt) {
     var critical = require('critical');
     var path = require('path');
     var async = require('async');
-    var fs = require('fs-extra');
     var _ = require('lodash');
     var glob = require('glob');
+
 
     /**
      * Check wether a resource is external or not
@@ -110,7 +110,11 @@ module.exports = function (grunt) {
 
 
                 critical.generate(opts).then(function (output) {
-                    fs.outputFileSync(destination, output);
+                    var dirname = path.dirname(destination);
+                    if (!grunt.file.isDir(dirname)) {
+                        grunt.file.mkdir(dirname);
+                    }
+                    grunt.file.write(destination, output);
                     // Print a success message.
                     grunt.log.ok('File "' + destination + '" created.');
 

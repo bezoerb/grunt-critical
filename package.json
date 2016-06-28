@@ -25,7 +25,6 @@
   "dependencies": {
     "async": "^1.5.2",
     "critical": "^0.7.0",
-    "fs-extra": "^0.30.0",
     "glob": "^7.0.3",
     "lodash": "^4.13.1"
   },
