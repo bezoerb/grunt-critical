@@ -23,16 +23,16 @@
     "test": "grunt ci"
   },
   "dependencies": {
-    "async": "^1.5.2",
-    "critical": "^0.7.0",
+    "async": "^2.0.1",
+    "critical": "^0.8.0",
     "glob": "^7.0.3",
     "lodash": "^4.13.1"
   },
   "devDependencies": {
     "chai": "^3.0.0",
-    "finalhandler": "^0.4.1",
+    "finalhandler": "^0.5.0",
     "grunt": "^1.0.1",
-    "grunt-complexity": "^0.3.0",
+    "grunt-complexity": "^1.0.1",
     "grunt-contrib-jshint": "^1.0.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-simple-mocha": "^0.4.0",
@@ -43,6 +43,6 @@
     "tasks"
   ],
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=4.0"
   }
 }

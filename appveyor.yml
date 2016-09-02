@@ -2,13 +2,8 @@ clone_depth: 10
 
 version: "{build}"
 
-# What combinations to test
 environment:
   matrix:
-    - nodejs_version: "0.10"
-      platform: x86
-    - nodejs_version: "0.12"
-      platform: x86
     - nodejs_version: "4"
       platform: x64
     - nodejs_version: "4"
@@ -23,10 +18,7 @@ install:
   - npm install
 
 test_script:
-  # Output useful info for debugging
   - node --version && npm --version
-  # We test multiple Windows shells because of prior stdout buffering issues
-  # filed against Grunt. https://github.com/joyent/node/issues/3584
   - ps: "npm test # PowerShell" # Pass comment to PS for easier debugging
   - cmd: npm test
 
