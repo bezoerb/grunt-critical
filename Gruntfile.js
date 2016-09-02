@@ -1,10 +1,10 @@
-// Generated on 2014-07-23 using generator-nodejs 2.0.1
+'use strict';
+
 var finalhandler = require('finalhandler');
 var http = require('http');
 var serveStatic = require('serve-static');
 
 module.exports = function (grunt) {
-    'use strict';
     require('load-grunt-tasks')(grunt);
     grunt.initConfig({
 
@@ -71,16 +71,6 @@ module.exports = function (grunt) {
                 },
                 src: 'test/fixture/index.html',
                 dest: 'test/generated/critical-glob.css'
-            },
-            'test-css-glob2': {
-                options: {
-                    base: './',
-                    css: 'test/fixture/styles/{main,bootstrap}.css',
-                    width: 1300,
-                    height: 900
-                },
-                src: 'test/fixture/index.html',
-                dest: 'test/generated/critical-glob2.css'
             },
             'test-ignore': {
                 options: {
@@ -225,7 +215,7 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: 'test/fixture/multiple',
-                    src: ['index{1,2,3}.html'],
+                    src: ['**/*.html'],
                     dest: 'test/generated/multiple-files-folder'
                 }]
             },
@@ -274,7 +264,6 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('stopServer', function () {
-
         server.close();
     });
 

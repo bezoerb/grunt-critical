@@ -8,13 +8,13 @@
 
 'use strict';
 
-module.exports = function (grunt) {
-    var critical = require('critical');
-    var path = require('path');
-    var async = require('async');
-    var _ = require('lodash');
-    var glob = require('glob');
+var critical = require('critical');
+var path = require('path');
+var async = require('async');
+var _ = require('lodash');
+var glob = require('glob');
 
+module.exports = function (grunt) {
 
     /**
      * Check wether a resource is external or not
@@ -41,8 +41,8 @@ module.exports = function (grunt) {
         async.eachSeries(this.files, function (f, next) {
             options.base = path.normalize(options.base || '');
 
-            // absolutize filepath
-            var basereplace = path.resolve(options.base || './') + '/';
+            // Make filepath absolute
+            var absoluteBase = path.resolve(options.base || './') + '/';
 
             // Concat specified files.
             var srcFiles = f.src.filter(function (filepath) {
@@ -50,9 +50,8 @@ module.exports = function (grunt) {
                 if (!grunt.file.exists(filepath) && !isExternal(filepath)) {
                     grunt.log.warn('Source file "' + filepath + '" not found.');
                     return false;
-                } else {
-                    return true;
                 }
+                return true;
             });
 
             srcFiles = srcFiles.concat(f.orig.src.filter(function (filepath) {
@@ -88,7 +87,6 @@ module.exports = function (grunt) {
             }
 
             grunt.log.debug('SOURCE', srcFiles);
-
             grunt.log.debug('CSS', options.css);
 
             async.eachSeries(srcFiles, function (src, cb) {
@@ -96,43 +94,43 @@ module.exports = function (grunt) {
                     inline: !/\.(css|scss|less|styl)/.test(path.extname(f.dest))
                 }, options);
 
-                if (!isExternal(src)) {
-                    opts.src = path.resolve(src).replace(basereplace, '');
-                } else {
+                if (isExternal(src)) {
                     opts.src = src;
+                } else {
+                    opts.src = path.resolve(src).replace(absoluteBase, '');
                 }
 
                 var destination = f.dest;
+
                 if (grunt.file.isDir(f.dest)) {
                     destination = path.join(f.dest, opts.src);
                 }
                 grunt.log.debug('opts', opts);
 
-
                 critical.generate(opts).then(function (output) {
                     var dirname = path.dirname(destination);
+
                     if (!grunt.file.isDir(dirname)) {
                         grunt.file.mkdir(dirname);
                     }
                     grunt.file.write(destination, output);
                     // Print a success message.
                     grunt.log.ok('File "' + destination + '" created.');
-
                     cb(null, output);
                 }).error(function (err) {
                     grunt.log.error('File "' + destination + '" failed.', err.message || err);
                     cb(err);
                 });
-
             }, function (e) {
                 if (e) {
                     grunt.fail.warn('File "' + f.dest + '" failed.');
                     grunt.log.warn(e.message || e);
-
                 }
                 next();
             });
+
         }, done);
+
     });
 
 };
