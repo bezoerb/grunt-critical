@@ -60,14 +60,12 @@ module.exports = function (grunt) {
 
             // nothing to do
             if (srcFiles.length === 0) {
-                var errorMsg = 'Destination (' + f.dest + ') not written because src files were empty.';
-                grunt.fail.warn(errorMsg, [1]);
+                grunt.fail.warn('Destination (' + f.dest + ') not written because src files were empty.', [1]);
                 return;
             }
 
             if (srcFiles.length > 1 && !grunt.file.isDir(f.dest)) {
-                var errorMsg = 'Destination needs to be a directory for multiple src files';
-                grunt.fail.warn(errorMsg, [1]);
+                grunt.fail.warn('Destination needs to be a directory for multiple src files', [1]);
                 return;
             }
 
