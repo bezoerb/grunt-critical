@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "async": "^2.0.1",
-    "critical": "^0.9.0",
+    "critical": "v0.9.1",
     "glob": "^7.0.3",
     "lodash": "^4.13.1"
   },
