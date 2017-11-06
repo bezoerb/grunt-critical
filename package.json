@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "async": "^2.0.1",
-    "critical": "v0.9.1",
+    "critical": "^1.0.0",
     "glob": "^7.0.3",
     "lodash": "^4.13.1"
   },
@@ -43,6 +43,6 @@
     "tasks"
   ],
   "engines": {
-    "node": ">=4.0"
+    "node": ">=6.4.0"
   }
 }

@@ -1,3 +1,57 @@
+
+v1.0.0 / 2017-11-06
+===================
+
+  * Critical v1.0.0
+  * Drop support for node < 6.4.0
+
+v0.3.0 / 2017-07-21
+===================
+
+  * 0.3.0
+  * Fix tests
+  * Bump dependencies
+  * Updated critical version in package.json
+
+v0.2.2 / 2016-12-12
+===================
+
+  * 0.2.2
+  * Update test files.
+  * Update CI configs.
+  * Reduce test files.
+  * Minor JS cleanup.
+  * Update dependencies.
+  * Remove the fs-extra dependency.
+
+v0.2.1 / 2016-06-13
+===================
+
+  * 0.2.1
+  * package.json: specify an engines property and files to include.
+  * Remove `http` dependency; it's a node.js module.
+  * Use `grunt.file.isDir` instead of our custom function.
+  * Fix Windows tests.
+  * Minor README.md refactoring.
+  * Minor appveyor.yml updates.
+  * AppVeyor badge
+  * Add AppVeyor for Windows testing
+  * Fix tests.
+  * Update dependencies.
+  * Normalize package.json.
+  * Update .gitignore.
+  * Trim trailing spaces.
+  * Update Travis CI from the latest grunt-contrib-internal.
+  * docs: remove trailing spaces and use `js` for js code.
+  * Lint tweaks.
+
+v0.2.0 / 2015-12-28
+===================
+
+  * 0.2.0
+  * bump deps
+  * bump critical
+
 0.1.7 / 2015-08-19
 ==================
 
