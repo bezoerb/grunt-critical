@@ -23,7 +23,7 @@
     "test": "grunt ci"
   },
   "dependencies": {
-    "async": "^2.0.1",
+    "async": "^2.6.0",
     "critical": "^1.0.0",
     "glob": "^7.0.3",
     "lodash": "^4.13.1"
