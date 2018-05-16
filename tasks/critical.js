@@ -117,7 +117,7 @@ module.exports = function (grunt) {
                     // Print a success message.
                     grunt.log.ok('File "' + destination + '" created.');
                     cb(null, output);
-                }).error(function (err) {
+                }).catch(function (err) {
                     grunt.log.error('File "' + destination + '" failed.', err.message || err);
                     cb(err);
                 });
