@@ -100,6 +100,23 @@ module.exports = function (grunt) {
                 src: 'test/fixture/index.html',
                 dest: 'test/generated/index-critical.html'
             },
+            'test-html-ignore-inline': {
+                options: {
+                    minify: true,
+                    base: './',
+                    css: [
+                        'test/fixture/styles/main.css',
+                        'test/fixture/styles/bootstrap.css'
+                    ],
+                    inline: {
+                        ignore: [/bootstrap\.css/],
+                    },
+                    width: 1300,
+                    height: 900
+                },
+                src: 'test/fixture/index.html',
+                dest: 'test/generated/index-critical-ignore-bootstrap.html'
+            },
             'test-dimensions': {
                 options: {
                     minify: true,

@@ -34,6 +34,13 @@ describe('critical', function() {
         expect(output).to.equal(expected);
     });
 
+    it('generates html with minified critical-path CSS successfully ignoring bootstrap css', function () {
+        var expected = readFile('expected/index-minified-ignore-bootstrap.html');
+        var output = readFile('generated/index-critical-ignore-bootstrap.html');
+
+        expect(output).to.equal(expected);
+    });
+
     it('generates html with minified critical-path CSS for multiple dimensions successfully', function () {
         var expected = readFile('expected/index-dimensions.html');
         var output = readFile('generated/index-dimensions.html');
