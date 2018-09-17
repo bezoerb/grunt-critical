@@ -1,4 +1,12 @@
 
+v1.1.2 / 2018-09-17
+===================
+
+  * Removed unsupported grunt task
+  * drop unsupported node 7 tests
+  * Bump dependencies
+  * Add test for inline-ignore
+
 v1.1.1 / 2018-05-16
 ==================
 
