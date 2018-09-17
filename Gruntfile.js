@@ -136,22 +136,6 @@ module.exports = function (grunt) {
                 src: 'test/fixture/index.html',
                 dest: 'test/generated/index-dimensions.html'
             },
-
-            'test-extract-css': {
-                options: {
-                    minify: true,
-                    extract: true,
-                    base: 'test/fixture',
-                    css: [
-                        'test/fixture/styles/main.css',
-                        'test/fixture/styles/bootstrap.css'
-                    ],
-                    width: 1300,
-                    height: 900
-                },
-                src: 'test/fixture/index.html',
-                dest: 'test/generated/index-critical-extract.css'
-            },
             'test-extract': {
                 options: {
                     minify: true,
