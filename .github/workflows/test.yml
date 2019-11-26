@@ -11,8 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # switch to `8` when https://github.com/actions/setup-node/issues/27 is fixed
-        node: [8.16.1, 10, 12]
+        node: [6.4.0, 8, 10, 12]
         os: [ubuntu-latest, windows-latest]
 
     steps:
@@ -34,9 +33,3 @@ jobs:
 
       - name: Run tests
         run: npm test
-
-      - name: Run Coveralls
-        uses: coverallsapp/github-action@master
-        if: startsWith(matrix.os, 'ubuntu') && matrix.node == 10
-        with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
