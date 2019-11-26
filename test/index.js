@@ -53,8 +53,8 @@ describe('critical', function() {
         var output = readFile('generated/index-critical-extract.html');
 
         expect(output).to.equal(expected);
-        expect(fileExists('fixture/styles/main.08e83c51.css')).to.equal(true);
-        expect(fileExists('fixture/styles/bootstrap.aa50d848.css')).to.equal(true);
+        expect(fileExists('fixture/styles/main.d41d8cd9.css')).to.equal(true);
+        expect(fileExists('fixture/styles/bootstrap.130e6d81.css')).to.equal(true);
     });
 
     it('generates multiple html files without throwing "warning: possible EventEmitter memory leak detected"', function() {
@@ -82,8 +82,8 @@ describe('critical', function() {
         var output = readFile('generated/index-external.html');
 
         expect(output).to.equal(expected);
-        expect(fileExists('fixture/styles/main.08e83c51.css')).to.equal(true);
-        expect(fileExists('fixture/styles/bootstrap.871bd998.css')).to.equal(true);
+        expect(fileExists('fixture/styles/main.d41d8cd9.css')).to.equal(true);
+        expect(fileExists('fixture/styles/bootstrap.ca3dbc40.css')).to.equal(true);
     });
 
     it('should write files to folder when folder is specified as dest', function() {
