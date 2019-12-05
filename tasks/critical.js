@@ -69,7 +69,7 @@ module.exports = grunt => {
 
             // use glob for css option
             if (options.css) {
-                if (!_.isArray(options.css)) {
+                if (!Array.isArray(options.css)) {
                     options.css = [options.css];
                 }
 
@@ -88,7 +88,7 @@ module.exports = grunt => {
             grunt.log.debug('CSS', options.css);
 
             async.eachSeries(srcFiles, (src, cb) => {
-                const opts = _.assign({
+                const opts = Object.assign({
                     inline: !/\.(css|scss|less|styl)/.test(path.extname(f.dest))
                 }, options);
 
