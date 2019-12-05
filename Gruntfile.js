@@ -20,16 +20,6 @@ module.exports = function (grunt) {
                 }
             }
         },
-        jshint: {
-            all: [
-                'Gruntfile.js',
-                'tasks/**/*.js',
-                'test/**/*.js'
-            ],
-            options: {
-                jshintrc: '.jshintrc'
-            }
-        },
         simplemocha: {
             all: ['test/**/*.js'],
             options: {
@@ -269,7 +259,7 @@ module.exports = function (grunt) {
     });
 
 
-    grunt.registerTask('test', ['jshint', 'startServer', 'critical', 'stopServer', 'simplemocha', 'watch']);
-    grunt.registerTask('ci', ['jshint', 'startServer', 'critical', 'stopServer', 'simplemocha']);
+    grunt.registerTask('test', ['startServer', 'critical', 'stopServer', 'simplemocha', 'watch']);
+    grunt.registerTask('ci', ['startServer', 'critical', 'stopServer', 'simplemocha']);
     grunt.registerTask('default', ['test']);
 };
