@@ -1,22 +1,20 @@
 'use strict';
 
-var finalhandler = require('finalhandler');
-var http = require('http');
-var serveStatic = require('serve-static');
+const http = require('http');
+const finalhandler = require('finalhandler');
+const serveStatic = require('serve-static');
 
-module.exports = function (grunt) {
+module.exports = grunt => {
     require('load-grunt-tasks')(grunt);
     grunt.initConfig({
-
-        pkg: grunt.file.readJSON('package.json'),
         complexity: {
             generic: {
                 src: ['tasks/critical.js'],
                 options: {
                     errorsOnly: false,
-                    cyclometric: 3,       // default is 3
-                    halstead: 8,          // default is 8
-                    maintainability: 100  // default is 100
+                    cyclometric: 3, // default is 3
+                    halstead: 8, // default is 8
+                    maintainability: 100 // default is 100
                 }
             }
         },
@@ -99,7 +97,7 @@ module.exports = function (grunt) {
                         'test/fixture/styles/bootstrap.css'
                     ],
                     inline: {
-                        ignore: [/bootstrap\.css/],
+                        ignore: [/bootstrap\.css/]
                     },
                     width: 1300,
                     height: 900
@@ -241,23 +239,22 @@ module.exports = function (grunt) {
     // Actually load this plugin's task(s).
     grunt.loadTasks('tasks');
 
-    var server;
-    grunt.registerTask('startServer', function () {
-        var serve = serveStatic('test/fixture', {
+    let server;
+    grunt.registerTask('startServer', () => {
+        const serve = serveStatic('test/fixture', {
             index: ['index.html', 'index.htm']
         });
 
-        server = http.createServer(function (req, res) {
-            var done = finalhandler(req, res);
+        server = http.createServer((req, res) => {
+            const done = finalhandler(req, res);
             serve(req, res, done);
         });
         server.listen(3000);
     });
 
-    grunt.registerTask('stopServer', function () {
+    grunt.registerTask('stopServer', () => {
         server.close();
     });
-
 
     grunt.registerTask('test', ['startServer', 'critical', 'stopServer', 'simplemocha', 'watch']);
     grunt.registerTask('ci', ['startServer', 'critical', 'stopServer', 'simplemocha']);

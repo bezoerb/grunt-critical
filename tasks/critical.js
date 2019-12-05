@@ -8,14 +8,13 @@
 
 'use strict';
 
-var critical = require('critical');
-var path = require('path');
-var async = require('async');
-var _ = require('lodash');
-var glob = require('glob');
+const path = require('path');
+const critical = require('critical');
+const async = require('async');
+const _ = require('lodash');
+const glob = require('glob');
 
-module.exports = function (grunt) {
-
+module.exports = grunt => {
     /**
      * Check wether a resource is external or not
      * @param href
@@ -25,11 +24,9 @@ module.exports = function (grunt) {
         return /(^\/\/)|(:\/\/)/.test(href);
     }
 
-
-    grunt.registerMultiTask('critical', 'Extract & inline critical-path CSS from HTML', function () {
-
-        var done = this.async();
-        var options = this.options({
+    grunt.registerMultiTask('critical', 'Extract & inline critical-path CSS from HTML', function() {
+        const done = this.async();
+        const options = this.options({
             // Your base directory
             base: ''
         });
@@ -38,29 +35,30 @@ module.exports = function (grunt) {
 
         // Loop files array
         // Iterate over all specified file groups.
-        async.eachSeries(this.files, function (f, next) {
+        async.eachSeries(this.files, (f, next) => {
             options.base = path.normalize(options.base || '');
 
             // Make filepath absolute
-            var absoluteBase = path.resolve(options.base || './') + '/';
+            const absoluteBase = `${path.resolve(options.base || './')}/`;
 
             // Concat specified files.
-            var srcFiles = f.src.filter(function (filepath) {
+            let srcFiles = f.src.filter(filepath => {
                 // Warn on and remove invalid source files (if nonull was set).
                 if (!grunt.file.exists(filepath) && !isExternal(filepath)) {
-                    grunt.log.warn('Source file "' + filepath + '" not found.');
+                    grunt.log.warn(`Source file "${filepath}" not found.`);
                     return false;
                 }
+
                 return true;
             });
 
-            srcFiles = srcFiles.concat(f.orig.src.filter(function (filepath) {
+            srcFiles = srcFiles.concat(f.orig.src.filter(filepath => {
                 return isExternal(filepath);
             }));
 
             // nothing to do
             if (srcFiles.length === 0) {
-                grunt.log.warn('Destination (' + f.dest + ') not written because src files were empty.');
+                grunt.log.warn(`Destination (${f.dest}) not written because src files were empty.`);
                 return;
             }
 
@@ -77,7 +75,7 @@ module.exports = function (grunt) {
 
                 options.css = _.chain(options.css)
                     .compact()
-                    .map(function(css) {
+                    .map(css => {
                         return glob.sync(css, {
                             nosort: true
                         });
@@ -89,8 +87,8 @@ module.exports = function (grunt) {
             grunt.log.debug('SOURCE', srcFiles);
             grunt.log.debug('CSS', options.css);
 
-            async.eachSeries(srcFiles, function (src, cb) {
-                var opts = _.assign({
+            async.eachSeries(srcFiles, (src, cb) => {
+                const opts = _.assign({
                     inline: !/\.(css|scss|less|styl)/.test(path.extname(f.dest))
                 }, options);
 
@@ -100,37 +98,37 @@ module.exports = function (grunt) {
                     opts.src = path.resolve(src).replace(absoluteBase, '');
                 }
 
-                var destination = f.dest;
+                let destination = f.dest;
 
                 if (grunt.file.isDir(f.dest)) {
                     destination = path.join(f.dest, opts.src);
                 }
+
                 grunt.log.debug('opts', opts);
 
-                critical.generate(opts).then(function (output) {
-                    var dirname = path.dirname(destination);
+                critical.generate(opts).then(output => {
+                    const dirname = path.dirname(destination);
 
                     if (!grunt.file.isDir(dirname)) {
                         grunt.file.mkdir(dirname);
                     }
+
                     grunt.file.write(destination, output);
                     // Print a success message.
-                    grunt.log.ok('File "' + destination + '" created.');
+                    grunt.log.ok(`File "${destination}" created.`);
                     cb(null, output);
-                }).catch(function (err) {
-                    grunt.log.error('File "' + destination + '" failed.', err.message || err);
-                    cb(err);
+                }).catch(error => {
+                    grunt.log.error(`File "${destination}" failed.`, error.message || error);
+                    cb(error);
                 });
-            }, function (e) {
+            }, e => {
                 if (e) {
-                    grunt.fail.warn('File "' + f.dest + '" failed.');
+                    grunt.fail.warn(`File "${f.dest}" failed.`);
                     grunt.log.warn(e.message || e);
                 }
+
                 next();
             });
-
         }, done);
-
     });
-
 };
