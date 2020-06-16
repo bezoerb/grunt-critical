@@ -51,9 +51,7 @@ module.exports = grunt => {
             'test-css-glob': {
                 options: {
                     base: './',
-                    css: [
-                        'test/fixture/styles/{main,bootstrap}.css'
-                    ],
+                    css: ['test/fixture/styles/{main,bootstrap}.css'],
                     width: 1300,
                     height: 900
                 },
@@ -118,7 +116,6 @@ module.exports = grunt => {
                             width: 500,
                             height: 900
                         }
-
                     ]
                 },
                 src: 'test/fixture/index.html',
@@ -150,12 +147,14 @@ module.exports = grunt => {
                     height: 900
                 },
                 // makes all src relative to cwd
-                files: [{
-                    expand: true,
-                    cwd: 'test/fixture/',
-                    src: ['multiple/**/*.html'],
-                    dest: 'test/generated/'
-                }]
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'test/fixture/',
+                        src: ['multiple/**/*.html'],
+                        dest: 'test/generated/'
+                    }
+                ]
             },
             'test-multiple-minified': {
                 options: {
@@ -169,12 +168,14 @@ module.exports = grunt => {
                     height: 900
                 },
                 // makes all src relative to cwd
-                files: [{
-                    expand: true,
-                    cwd: 'test/fixture/multiple',
-                    src: ['**/*.html'],
-                    dest: 'test/generated/multiple-min'
-                }]
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'test/fixture/multiple',
+                        src: ['**/*.html'],
+                        dest: 'test/generated/multiple-min'
+                    }
+                ]
             },
             'test-external': {
                 options: {
@@ -201,12 +202,14 @@ module.exports = grunt => {
                     width: 1300,
                     height: 900
                 },
-                files: [{
-                    expand: true,
-                    cwd: 'test/fixture/multiple',
-                    src: ['**/*.html'],
-                    dest: 'test/generated/multiple-files-folder'
-                }]
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'test/fixture/multiple',
+                        src: ['**/*.html'],
+                        dest: 'test/generated/multiple-files-folder'
+                    }
+                ]
             },
             'test-remote-css': {
                 options: {
@@ -217,7 +220,6 @@ module.exports = grunt => {
                 },
                 src: 'http://localhost:3000/index.html',
                 dest: 'test/generated/remote.css'
-
             },
             'test-remote-html': {
                 options: {
@@ -245,9 +247,9 @@ module.exports = grunt => {
             index: ['index.html', 'index.htm']
         });
 
-        server = http.createServer((req, res) => {
-            const done = finalhandler(req, res);
-            serve(req, res, done);
+        server = http.createServer((request, response) => {
+            const done = finalhandler(request, response);
+            serve(request, response, done);
         });
         server.listen(3000);
     });
@@ -256,7 +258,18 @@ module.exports = grunt => {
         server.close();
     });
 
-    grunt.registerTask('test', ['startServer', 'critical', 'stopServer', 'simplemocha', 'watch']);
-    grunt.registerTask('ci', ['startServer', 'critical', 'stopServer', 'simplemocha']);
+    grunt.registerTask('test', [
+        'startServer',
+        'critical',
+        'stopServer',
+        'simplemocha',
+        'watch'
+    ]);
+    grunt.registerTask('ci', [
+        'startServer',
+        'critical',
+        'stopServer',
+        'simplemocha'
+    ]);
     grunt.registerTask('default', ['test']);
 };
