@@ -6,15 +6,15 @@
  * Licensed under the MIT license.
  */
 
-"use strict";
+'use strict';
 
-const path = require("path");
-const critical = require("critical");
-const { eachSeries } = require("async");
-const _ = require("lodash");
-const glob = require("glob");
+const path = require('path');
+const critical = require('critical');
+const {eachSeries} = require('async');
+const _ = require('lodash');
+const glob = require('glob');
 
-module.exports = (grunt) => {
+module.exports = grunt => {
     /**
      * Check wether a resource is external or not
      * @param href
@@ -25,13 +25,13 @@ module.exports = (grunt) => {
     }
 
     grunt.registerMultiTask(
-        "critical",
-        "Extract & inline critical-path CSS from HTML",
-        function () {
+        'critical',
+        'Extract & inline critical-path CSS from HTML',
+        function() {
             const done = this.async();
             const options = this.options({
                 // Your base directory
-                base: "",
+                base: ''
             });
 
             process.setMaxListeners(0);
@@ -41,15 +41,15 @@ module.exports = (grunt) => {
             eachSeries(
                 this.files,
                 (f, next) => {
-                    options.base = path.normalize(options.base || "");
+                    options.base = path.normalize(options.base || '');
 
                     // Make filepath absolute
                     const absoluteBase = `${path.resolve(
-                        options.base || "./"
+                        options.base || './'
                     )}/`;
 
                     // Concat specified files.
-                    let srcFiles = f.src.filter((filepath) => {
+                    let srcFiles = f.src.filter(filepath => {
                         // Warn on and remove invalid source files (if nonull was set).
                         if (
                             !grunt.file.exists(filepath) &&
@@ -65,7 +65,7 @@ module.exports = (grunt) => {
                     });
 
                     srcFiles = srcFiles.concat(
-                        f.orig.src.filter((filepath) => {
+                        f.orig.src.filter(filepath => {
                             return isExternal(filepath);
                         })
                     );
@@ -80,7 +80,7 @@ module.exports = (grunt) => {
 
                     if (srcFiles.length > 1 && !grunt.file.isDir(f.dest)) {
                         grunt.log.warn(
-                            "Destination needs to be a directory for multiple src files"
+                            'Destination needs to be a directory for multiple src files'
                         );
                         return;
                     }
@@ -93,32 +93,32 @@ module.exports = (grunt) => {
 
                         options.css = _.chain(options.css)
                             .compact()
-                            .map((css) => {
+                            .map(css => {
                                 return glob.sync(css, {
-                                    nosort: true,
+                                    nosort: true
                                 });
                             })
                             .flatten()
                             .value();
                     }
 
-                    grunt.log.debug("SOURCE", srcFiles);
-                    grunt.log.debug("CSS", options.css);
+                    grunt.log.debug('SOURCE', srcFiles);
+                    grunt.log.debug('CSS', options.css);
 
                     eachSeries(
                         srcFiles,
-                        async (src) => {
+                        async src => {
                             const inline = !/\.(css|scss|less|styl)/.test(
                                 path.extname(f.dest)
                             );
-                            const options_ = { inline, ...options };
+                            const options_ = {inline, ...options};
 
                             if (isExternal(src)) {
                                 options_.src = src;
                             } else {
                                 options_.src = path
                                     .resolve(src)
-                                    .replace(absoluteBase, "");
+                                    .replace(absoluteBase, '');
                             }
 
                             let destination = f.dest;
@@ -127,10 +127,10 @@ module.exports = (grunt) => {
                                 destination = path.join(f.dest, options_.src);
                             }
 
-                            grunt.log.debug("opts", options_);
+                            grunt.log.debug('opts', options_);
 
                             try {
-                                const { html, css } = await critical.generate(
+                                const {html, css} = await critical.generate(
                                     options_
                                 );
 
@@ -153,7 +153,7 @@ module.exports = (grunt) => {
                                 throw error;
                             }
                         },
-                        (error) => {
+                        error => {
                             if (error) {
                                 grunt.fail.warn(`File "${f.dest}" failed.`);
                                 grunt.log.warn(error.message || error);
