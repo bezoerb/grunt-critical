@@ -141,7 +141,10 @@ module.exports = grunt => {
                                     grunt.file.mkdir(dirname);
                                 }
 
-                                grunt.file.write(destination, output);
+                                grunt.file.write(
+                                    destination,
+                                    Buffer.from(output)
+                                );
                                 // Print a success message.
                                 grunt.log.ok(`File "${destination}" created.`);
                                 return output;
