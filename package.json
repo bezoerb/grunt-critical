@@ -47,8 +47,14 @@
     "engines": {
         "node": ">=10"
     },
+    "prettier": {
+        "trailingComma": "es5",
+        "singleQuote": true,
+        "printWidth": 120,
+        "bracketSpacing": false
+    },
     "xo": {
-        "space": 4,
+        "space": 2,
         "rules": {
             "capitalized-comments": "off",
             "space-before-function-paren": [
