@@ -43,6 +43,7 @@
     "grunt-simple-mocha": "^0.4.1",
     "load-grunt-tasks": "^5.1.0",
     "normalize-newline": "^4.1.0",
+    "prettier": "^2.7.1",
     "serve-static": "^1.15.0"
   },
   "files": [
