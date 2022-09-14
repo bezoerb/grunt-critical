@@ -74,7 +74,6 @@ module.exports = grunt => {
       },
       'test-html': {
         options: {
-          minify: true,
           base: './',
           css: [
             'test/fixture/styles/main.css',
@@ -88,7 +87,6 @@ module.exports = grunt => {
       },
       'test-html-ignore-inline': {
         options: {
-          minify: true,
           base: './',
           css: [
             'test/fixture/styles/main.css',
@@ -105,7 +103,6 @@ module.exports = grunt => {
       },
       'test-dimensions': {
         options: {
-          minify: true,
           base: 'test/fixture',
           dimensions: [
             {
@@ -123,7 +120,6 @@ module.exports = grunt => {
       },
       'test-extract': {
         options: {
-          minify: true,
           extract: true,
           base: 'test/fixture',
           css: [
@@ -159,7 +155,6 @@ module.exports = grunt => {
       'test-multiple-minified': {
         options: {
           base: 'test/fixture',
-          minify: true,
           css: [
             'test/fixture/styles/main.css',
             'test/fixture/styles/bootstrap.css'
@@ -180,7 +175,6 @@ module.exports = grunt => {
       'test-external': {
         options: {
           base: 'test/fixture',
-          minify: true,
           extract: true,
           css: [
             'test/fixture/styles/main.css',
@@ -223,7 +217,6 @@ module.exports = grunt => {
       },
       'test-remote-html': {
         options: {
-          minify: true,
           base: './',
           css: [
             'test/fixture/styles/main.css',
