@@ -48,7 +48,10 @@ critical: {
             height: 70
         },
         src: 'test/fixture/index.html',
-        dest: 'test/generated/critical.css'
+        dest: 'test/generated/critical.css',
+        target: {
+          uncritical: 'test/generated/uncritical.css'
+        }
     }
 }
 ```
