@@ -5,3 +5,4 @@ npm-debug.log
 test/fixture/styles/bootstrap.*.css
 test/fixture/styles/main.*.css
 test/generated/
+.idea

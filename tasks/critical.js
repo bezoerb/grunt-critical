@@ -15,7 +15,17 @@ const glob = require('glob');
 
 module.exports = (grunt) => {
   /**
-   * Check wether a resource is external or not
+   * Make sure a directory exists.
+   * @param dir
+   */
+  function ensureDir(dir) {
+    if (!grunt.file.isDir(dir)) {
+      grunt.file.mkdir(dir);
+    }
+  }
+
+  /**
+   * Check whether a resource is external or not
    * @param href
    * @returns {boolean}
    */
@@ -99,30 +109,37 @@ module.exports = (grunt) => {
                 options_.src = path.resolve(src).replace(absoluteBase, '');
               }
 
-              let destination = f.dest;
+              let criticalPath = f.dest;
 
               if (grunt.file.isDir(f.dest)) {
-                destination = path.join(f.dest, options_.src);
+                criticalPath = path.join(f.dest, options_.src);
               }
 
               grunt.log.debug('opts', options_);
 
               try {
-                const {html, css} = await critical.generate(options_);
+                const {html, css, uncritical} = await critical.generate(options_);
 
                 const output = inline ? html : css;
-                const dirname = path.dirname(destination);
+                const criticalDir = path.dirname(criticalPath);
 
-                if (!grunt.file.isDir(dirname)) {
-                  grunt.file.mkdir(dirname);
+                ensureDir(criticalDir);
+
+                grunt.file.write(criticalPath, Buffer.from(output));
+                // Print a success message.
+                grunt.log.ok(`File "${criticalPath}" created.`);
+
+                if (f.target?.uncritical) {
+                  const uncriticalPath = f.target.uncritical;
+                  const uncriticalDir = path.dirname(uncriticalPath);
+                  ensureDir(uncriticalDir);
+                  grunt.file.write(uncriticalPath, Buffer.from(uncritical));
+                  grunt.log.ok(`Uncritical "${uncriticalPath}" created.`);
                 }
 
-                grunt.file.write(destination, Buffer.from(output));
-                // Print a success message.
-                grunt.log.ok(`File "${destination}" created.`);
                 return output;
               } catch (error) {
-                grunt.log.error(`File "${destination}" failed.`, error.message || error);
+                grunt.log.error(`File "${criticalPath}" failed.`, error.message || error);
                 throw error;
               }
             },
