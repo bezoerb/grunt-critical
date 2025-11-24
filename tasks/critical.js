@@ -66,15 +66,15 @@ module.exports = (grunt) => {
 
           srcFiles = srcFiles.concat(f.orig.src.filter((filepath) => isExternal(filepath)));
 
-          // Nothing to do
+          // nothing to do
           if (srcFiles.length === 0) {
-            grunt.log.warn(`Destination (${f.dest}) not written because src files were empty.`);
-            return;
+              grunt.fail.warn('Destination (' + f.dest + ') not written because src files were empty.', [1]);
+              return;
           }
 
           if (srcFiles.length > 1 && !grunt.file.isDir(f.dest)) {
-            grunt.log.warn('Destination needs to be a directory for multiple src files');
-            return;
+              grunt.fail.warn('Destination needs to be a directory for multiple src files', [1]);
+              return;
           }
 
           // Use glob for css option
