@@ -3,13 +3,12 @@
 Grunt plugin to extract & inline critical-path CSS from HTML
 
 [![NPM version][npm-image]][npm-url]
-[![Build Status][travis-image]][travis-url]
-[![Build Status: Windows][appveyor-image]][appveyor-url]
+[![Build Status][ci-image]][ci-url]
 [![Dependency Status][depstat-image]][depstat-url]
 
 ## Getting Started
 
-If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
+If you haven't used [Grunt](https://gruntjs.com/) before, be sure to check out the [Getting Started](https://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](https://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
 npm install grunt-critical --save-dev
@@ -25,7 +24,7 @@ grunt.loadNpmTasks('grunt-critical');
 
 _Run this task with the `grunt critical` command._
 
-Task targets, files and options may be specified according to the grunt [Configuring tasks](http://gruntjs.com/configuring-tasks) guide.
+Task targets, files and options may be specified according to the grunt [Configuring tasks](https://gruntjs.com/configuring-tasks) guide.
 
 Generate critical path css and inline it with [critical](https://github.com/addyosmani/critical).
 
@@ -49,7 +48,10 @@ critical: {
             height: 70
         },
         src: 'test/fixture/index.html',
-        dest: 'test/generated/critical.css'
+        dest: 'test/generated/critical.css',
+        target: {
+          uncritical: 'test/generated/uncritical.css'
+        }
     }
 }
 ```
@@ -88,11 +90,8 @@ For a full list of options see [critical](https://github.com/addyosmani/critical
 [npm-url]: https://npmjs.org/package/grunt-critical
 [npm-image]: https://badge.fury.io/js/grunt-critical.svg
 
-[travis-url]: https://travis-ci.org/bezoerb/grunt-critical
-[travis-image]: https://travis-ci.org/bezoerb/grunt-critical.svg?branch=master
+[ci-url]: https://github.com/bezoerb/grunt-critical/actions?workflow=Tests
+[ci-image]: https://github.com/bezoerb/grunt-critical/workflows/Tests/badge.svg
 
 [depstat-url]: https://david-dm.org/bezoerb/grunt-critical
 [depstat-image]: https://david-dm.org/bezoerb/grunt-critical.svg
-
-[appveyor-url]: https://ci.appveyor.com/project/bezoerb/grunt-critical/branch/master
-[appveyor-image]: https://ci.appveyor.com/api/projects/status/pnhd2gljrg9xea26/branch/master?svg=true
